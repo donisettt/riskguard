@@ -46,7 +46,7 @@
                         <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
                     </form>
                     <div class="mt-3 text-center">
-                        <small>Belum punya akun? <a href="/uas_risk_project/register">Daftar disini</a></small>
+                        <small>Belum punya akun? <a href="/sigma/register">Daftar disini</a></small>
                     </div>
                 </div>
             </div>

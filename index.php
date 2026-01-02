@@ -28,6 +28,27 @@ if (isset($url[0])) {
         exit;
     }
 
+    // Routing Module Edukasi
+    if ($url[0] == 'education') {
+        require_once 'app/controllers/EducationController.php';
+        $controller = new EducationController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
+
+        if (method_exists($controller, $method)) {
+            // Panggil method dengan parameter jika ada
+            if ($param) {
+                $controller->{$method}($param);
+            } else {
+                $controller->{$method}();
+            }
+        } else {
+            echo "Method not found";
+        }
+        exit;
+    }
+
     // Route Dashboard
     elseif ($url[0] == 'dashboard') {
         require_once 'app/controllers/DashboardController.php';

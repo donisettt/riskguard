@@ -50,7 +50,7 @@
                         <button type="submit" class="btn btn-success w-100 py-2">Daftar Sekarang</button>
                     </form>
                     <div class="mt-3 text-center">
-                        <small>Sudah punya akun? <a href="/uas_risk_project/login">Login disini</a></small>
+                        <small>Sudah punya akun? <a href="/sigma/login">Login disini</a></small>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ class AuthMiddleware
     {
         // Cek apakah session user_id ada
         if (!isset($_SESSION['user_id'])) {
-            header("Location: /uas_risk_project/login");
+            header("Location: /sigma/login");
             exit;
         }
     }
