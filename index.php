@@ -57,7 +57,22 @@ if (isset($url[0])) {
         exit;
     }
 
-    // Nanti tambahkan route untuk edukasi, assessment, dll disini
+    // Routing Module Questions (Kuesioner)
+    elseif ($url[0] == 'questions') {
+        require_once 'app/controllers/QuestionController.php';
+        $controller = new QuestionController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
+
+        if (method_exists($controller, $method)) {
+            if ($param) $controller->{$method}($param);
+            else $controller->{$method}();
+        } else {
+            echo "Method not found";
+        }
+        exit;
+    }
 }
 
 // Default jika url kosong / home
