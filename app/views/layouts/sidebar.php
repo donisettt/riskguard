@@ -15,34 +15,60 @@
         <?php if ($_SESSION['role'] === 'admin'): ?>
             <div class="sidebar-label">ADMINISTRATION</div>
 
-            <a href="/sigma/respondent" class="list-group-item list-group-item-action">
-                <i class="fas fa-users"></i> Data Responden
+            <!-- Data Management -->
+            <a href="#dataMenu" class="list-group-item list-group-item-action collapsed" data-bs-toggle="collapse">
+                <i class="fas fa-database"></i> Data Management
+                <i class="fas fa-chevron-down float-end"></i>
             </a>
+            <div class="collapse" id="dataMenu">
+                <a href="/sigma/respondent" class="list-group-item list-group-item-action ps-4">
+                    <i class="fas fa-users"></i> Data Responden
+                </a>
+            </div>
 
-            <a href="/sigma/education/manage" class="list-group-item list-group-item-action">
-                <i class="fas fa-book-open"></i> Kelola Edukasi
+            <!-- Content Management -->
+            <a href="#contentMenu" class="list-group-item list-group-item-action collapsed" data-bs-toggle="collapse">
+                <i class="fas fa-folder-open"></i> Content Management
+                <i class="fas fa-chevron-down float-end"></i>
             </a>
+            <div class="collapse" id="contentMenu">
+                <a href="/sigma/education/manage" class="list-group-item list-group-item-action ps-4">
+                    <i class="fas fa-book-open"></i> Kelola Edukasi
+                </a>
+                <a href="/sigma/rng-games" class="list-group-item list-group-item-action ps-4">
+                    <i class="fas fa-dice"></i> Kelola Game RNG
+                </a>
+            </div>
 
-            <a href="/sigma/rng-games" class="list-group-item list-group-item-action">
-                <i class="fas fa-dice"></i> Kelola Game RNG
+            <!-- Assessment Management -->
+            <a href="#assessmentMenu" class="list-group-item list-group-item-action collapsed" data-bs-toggle="collapse">
+                <i class="fas fa-clipboard-check"></i> Assessment
+                <i class="fas fa-chevron-down float-end"></i>
             </a>
+            <div class="collapse" id="assessmentMenu">
+                <a href="/sigma/assessment-groups" class="list-group-item list-group-item-action ps-4">
+                    <i class="fas fa-layer-group"></i> Grup Assessment
+                </a>
+                <a href="/sigma/questions" class="list-group-item list-group-item-action ps-4">
+                    <i class="fas fa-clipboard-list"></i> Bank Soal
+                </a>
+            </div>
 
-            <a href="/sigma/simulator/history" class="list-group-item list-group-item-action">
-                <i class="fas fa-history"></i> History Simulasi
+            <!-- Analytics & Reports -->
+            <a href="#analyticsMenu" class="list-group-item list-group-item-action collapsed" data-bs-toggle="collapse">
+                <i class="fas fa-chart-bar"></i> Analytics & Reports
+                <i class="fas fa-chevron-down float-end"></i>
             </a>
+            <div class="collapse" id="analyticsMenu">
+                <a href="/sigma/simulator/history" class="list-group-item list-group-item-action ps-4">
+                    <i class="fas fa-history"></i> History Simulasi
+                </a>
+                <a href="/sigma/report" class="list-group-item list-group-item-action ps-4">
+                    <i class="fas fa-chart-line"></i> Laporan Analisis
+                </a>
+            </div>
 
-            <a href="/sigma/assessment-groups" class="list-group-item list-group-item-action">
-                <i class="fas fa-layer-group"></i> Grup Assessment
-            </a>
-
-            <a href="/sigma/questions" class="list-group-item list-group-item-action">
-                <i class="fas fa-clipboard-list"></i> Bank Soal
-            </a>
-
-            <a href="/sigma/report" class="list-group-item list-group-item-action">
-                <i class="fas fa-chart-line"></i> Laporan Analisis
-            </a>
-
+            <!-- Settings -->
             <a href="/sigma/settings" class="list-group-item list-group-item-action">
                 <i class="fas fa-cogs"></i> Pengaturan
             </a>

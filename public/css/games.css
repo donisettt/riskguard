@@ -1,0 +1,121 @@
+:root {
+  --sigma-green: #15803d;
+  --sigma-green-subtle: #f0fdf4;
+}
+
+.text-sigma {
+  color: var(--sigma-green) !important;
+}
+
+.bg-sigma {
+  background-color: var(--sigma-green) !important;
+}
+
+/* Tombol Utama */
+.btn-sigma {
+  background-color: var(--sigma-green);
+  border-color: var(--sigma-green);
+  color: white;
+  padding: 0.5rem 1.5rem;
+}
+
+.btn-sigma:hover {
+  background-color: #166534;
+  border-color: #166534;
+  color: white;
+}
+
+/* Override Bootstrap Form Focus (Jadi Hijau) */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--sigma-green);
+  box-shadow: 0 0 0 0.25rem rgba(21, 128, 61, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: var(--sigma-green);
+  border-color: var(--sigma-green);
+}
+
+/* Aksen Kartu */
+.card-sigma-top {
+  border-top: 4px solid var(--sigma-green);
+}
+
+/* Pastikan tinggi kartu sama */
+.h-100 {
+  height: 100% !important;
+}
+
+/* Input Group Text Background */
+.input-group-text {
+  background-color: #f8f9fa;
+  border-color: #ced4da;
+}
+
+/* Custom Sigma Styles - Mengikuti Warna Sidebar */
+:root {
+  --sigma-green: #15803d;
+  /* Emerald Green yang solid & profesional */
+  --sigma-green-hover: #166534;
+}
+
+.text-sigma {
+  color: var(--sigma-green) !important;
+}
+
+.bg-sigma {
+  background-color: var(--sigma-green) !important;
+}
+
+.btn-sigma {
+  background-color: var(--sigma-green);
+  color: white;
+  border: 1px solid var(--sigma-green);
+}
+
+.btn-sigma:hover {
+  background-color: var(--sigma-green-hover);
+  color: white;
+}
+
+.btn-outline-sigma {
+  color: var(--sigma-green);
+  border-color: var(--sigma-green);
+}
+
+.btn-outline-sigma:hover {
+  background-color: var(--sigma-green);
+  color: white;
+}
+
+/* Helper Utilities */
+.tracking-wide {
+  letter-spacing: 0.05em;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-hover-effect {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08) !important;
+}
+
+.bg-success-subtle {
+  background-color: #dcfce7 !important;
+  /* Hijau muda pudar */
+}
+
+.text-success {
+  color: #15803d !important;
+  /* Hijau gelap */
+}

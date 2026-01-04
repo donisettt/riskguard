@@ -1,48 +1,30 @@
-<div class="container py-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <!-- Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h2 class="fw-bold text-primary"><i class="fas fa-plus-circle"></i> Tambah Game RNG Baru</h2>
-                    <p class="text-muted">Tambahkan game judi online viral untuk edukasi</p>
-                </div>
-                <a href="/sigma/rng-games" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Kembali
-                </a>
-            </div>
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1 text-dark">Tambah Game Baru</h4>
+            <p class="text-muted mb-0 small">Konfigurasi parameter simulasi.</p>
+        </div>
+        <a href="/sigma/rng-games" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
 
-            <!-- Alert -->
-            <?php if (isset($_SESSION['message'])): ?>
-                <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show">
-                    <?= $_SESSION['message'] ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-                <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
-            <?php endif; ?>
+    <form method="POST" action="/sigma/rng-games/create">
+        <div class="row g-4">
 
-            <!-- Form Card -->
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-4">
-                    <form method="POST" action="/sigma/rng-games/create">
-
-                        <!-- Nama Game -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 card-sigma-top h-100">
+                    <div class="card-header bg-white border-0 pt-4 pb-0">
+                        <h6 class="fw-bold text-sigma"><i class="fas fa-info-circle me-2"></i>Informasi Umum</h6>
+                    </div>
+                    <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Nama Game <span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control" required
-                                placeholder="Contoh: Slot Olympus, Higgs Domino, Crazy Time">
+                            <label class="form-label small fw-bold text-secondary">Nama Game <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" required placeholder="Cth: Gates of Olympus">
                         </div>
 
-                        <!-- Deskripsi -->
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Deskripsi Singkat <span class="text-danger">*</span></label>
-                            <textarea name="description" class="form-control" rows="3" required
-                                placeholder="Jelaskan game ini dan bahayanya bagi mental"></textarea>
-                        </div>
-
-                        <!-- Tipe Game -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Tipe Game <span class="text-danger">*</span></label>
+                            <label class="form-label small fw-bold text-secondary">Tipe Game <span class="text-danger">*</span></label>
                             <select name="game_type" class="form-select" required>
                                 <option value="">-- Pilih Tipe --</option>
                                 <option value="Slot">Slot Machine</option>
@@ -55,70 +37,82 @@
                             </select>
                         </div>
 
-                        <!-- Simbol -->
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Simbol / Emoji <span class="text-danger">*</span></label>
-                            <input type="text" name="symbols" class="form-control" required
-                                placeholder="Contoh: 🍒,🍋,🔔,💎,7️⃣ (pisahkan dengan koma)">
-                            <small class="text-muted">Gunakan emoji atau karakter untuk visualisasi game</small>
+                            <label class="form-label small fw-bold text-secondary">Deskripsi Edukasi <span class="text-danger">*</span></label>
+                            <textarea name="description" class="form-control" rows="4" required placeholder="Jelaskan mekanisme psikologis game ini..."></textarea>
                         </div>
 
-                        <!-- RTP -->
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold">RTP (%) <span class="text-danger">*</span></label>
-                                <input type="number" name="rtp" class="form-control" required
-                                    min="1" max="99" step="0.1" placeholder="85">
-                                <small class="text-muted">Return to Player</small>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold">Biaya Taruhan <span class="text-danger">*</span></label>
-                                <input type="number" name="bet_cost" class="form-control" required
-                                    min="1000" step="1000" placeholder="10000">
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold">Max Payout <span class="text-danger">*</span></label>
-                                <input type="number" name="max_payout" class="form-control" required
-                                    min="10000" step="10000" placeholder="500000">
-                            </div>
-                        </div>
-
-                        <!-- Status Aktif -->
-                        <div class="mb-4">
-                            <div class="form-check form-switch">
+                        <div class="p-3 bg-light rounded border border-light">
+                            <div class="form-check form-switch mb-0">
                                 <input class="form-check-input" type="checkbox" name="is_active" id="is_active" checked>
-                                <label class="form-check-label fw-bold" for="is_active">
-                                    Aktifkan game ini
-                                </label>
+                                <label class="form-check-label fw-bold small text-dark" for="is_active">Status: Aktif</label>
+                            </div>
+                            <div class="text-muted small mt-1" style="font-size: 0.75rem;">
+                                Game akan langsung tampil di halaman depan jika diaktifkan.
                             </div>
                         </div>
-
-                        <!-- Buttons -->
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary flex-fill">
-                                <i class="fas fa-save"></i> Simpan Game
-                            </button>
-                            <a href="/sigma/rng-games" class="btn btn-secondary">
-                                <i class="fas fa-times"></i> Batal
-                            </a>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
 
-            <!-- Info Box -->
-            <div class="alert alert-info mt-4">
-                <h6 class="fw-bold"><i class="fas fa-lightbulb"></i> Tips:</h6>
-                <ul class="mb-0 small">
-                    <li>Pilih game judi online yang viral dan populer di Indonesia</li>
-                    <li>RTP realistis untuk game slot biasanya 85-96%</li>
-                    <li>Deskripsi harus mengedukasi bahaya mental dari game tersebut</li>
-                    <li>Simbol bisa menggunakan emoji atau karakter unik</li>
-                </ul>
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 card-sigma-top h-100">
+                    <div class="card-header bg-white border-0 pt-4 pb-0">
+                        <h6 class="fw-bold text-sigma"><i class="fas fa-cogs me-2"></i>Konfigurasi Algoritma</h6>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary">Simbol / Aset <span class="text-danger">*</span></label>
+                            <input type="text" name="symbols" class="form-control font-monospace" required placeholder="🍒,🍋,🔔,💎,7️⃣">
+                            <div class="form-text small">Pisahkan dengan koma (tanpa spasi).</div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-secondary">RTP (%) <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="number" name="rtp" class="form-control" required min="1" max="99" step="0.1" placeholder="96.5">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-secondary">Biaya Bet <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="number" name="bet_cost" class="form-control" required min="1000" step="500" placeholder="200">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-secondary">Max Win (Payout) <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="number" name="max_payout" class="form-control" required min="10000" step="10000" placeholder="5000000">
+                                </div>
+                                <div class="form-text small mt-1 text-muted">
+                                    <i class="fas fa-info-circle"></i> Batas kemenangan maksimal yang bisa didapat user.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                            <a href="/sigma/rng-games" class="btn btn-light border">Batal</a>
+                            <button type="submit" class="btn btn-sigma px-4">
+                                <i class="fas fa-save me-1"></i> Simpan
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
         </div>
+    </form>
+
+    <div class="mt-3 text-muted small">
+        <i class="fas fa-lightbulb text-warning me-1"></i>
+        <strong>Tips:</strong> Gunakan RTP rendah (dibawah 90%) untuk simulasi kerugian.
     </div>
 </div>
+
+<link rel="stylesheet" href="/sigma/public/css/games.css">

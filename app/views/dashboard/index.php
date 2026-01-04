@@ -5,7 +5,7 @@
         <div class="welcome-banner glass-effect mb-5">
             <div class="d-flex align-items-center justify-content-between">
                 <div>
-                    <h2 class="welcome-title mb-2">Selamat Datang, <span class="gradient-text"><?= $data['user']; ?></span>!</h2>
+                    <h2 class="welcome-title mb-2">Selamat Datang, <?= $data['user']; ?>!</h2>
                     <p class="welcome-subtitle mb-0">
                         Anda login sebagai <strong><?= ucfirst($data['role']); ?></strong>
                     </p>
