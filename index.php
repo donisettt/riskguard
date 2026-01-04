@@ -144,11 +144,33 @@ if (isset($url[0])) {
         $controller = new SimulatorController();
 
         $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
 
         if (method_exists($controller, $method)) {
-            $controller->{$method}();
+            if ($param) {
+                $controller->{$method}($param);
+            } else {
+                $controller->{$method}();
+            }
         } else {
             $controller->index();
+        }
+        exit;
+    }
+
+    // Routing Module RNG Games (Admin Only)
+    elseif ($url[0] == 'rng-games') {
+        require_once 'app/controllers/RNGGameController.php';
+        $controller = new RNGGameController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
+
+        if (method_exists($controller, $method)) {
+            if ($param) $controller->{$method}($param);
+            else $controller->{$method}();
+        } else {
+            echo "Method not found";
         }
         exit;
     }

@@ -23,6 +23,10 @@
                 <i class="fas fa-book-open"></i> Kelola Edukasi
             </a>
 
+            <a href="/sigma/rng-games" class="list-group-item list-group-item-action">
+                <i class="fas fa-dice"></i> Kelola Game RNG
+            </a>
+
             <a href="/sigma/assessment-groups" class="list-group-item list-group-item-action">
                 <i class="fas fa-layer-group"></i> Grup Assessment
             </a>

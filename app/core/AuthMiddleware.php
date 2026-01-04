@@ -17,4 +17,14 @@ class AuthMiddleware
             exit;
         }
     }
+
+    public static function requireAdmin()
+    {
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            $_SESSION['message'] = 'Akses ditolak! Halaman ini khusus untuk admin.';
+            $_SESSION['message_type'] = 'danger';
+            header("Location: /sigma/dashboard");
+            exit;
+        }
+    }
 }
