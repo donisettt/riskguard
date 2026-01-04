@@ -95,4 +95,19 @@ class AssessmentController
         require_once 'app/views/assessment/result.php';
         require_once 'app/views/layouts/footer.php';
     }
+
+    // Halaman Riwayat Assessment User
+    public function history()
+    {
+        AuthMiddleware::check();
+
+        $data['title'] = 'Riwayat Assessment Saya';
+        $data['history'] = $this->assessmentModel->getHistoryByUser($_SESSION['user_id']);
+
+        require_once 'app/views/layouts/header.php';
+        require_once 'app/views/layouts/sidebar.php';
+        require_once 'app/views/layouts/navbar.php';
+        require_once 'app/views/assessment/history.php';
+        require_once 'app/views/layouts/footer.php';
+    }
 }

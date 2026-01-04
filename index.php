@@ -103,6 +103,39 @@ if (isset($url[0])) {
         }
         exit;
     }
+
+    // Routing Module History (Assessment History)
+    elseif ($url[0] == 'history') {
+        require_once 'app/controllers/AssessmentController.php';
+        $controller = new AssessmentController();
+        $controller->history();
+        exit;
+    }
+
+    // Routing Module Data Responden (Admin Only)
+    elseif ($url[0] == 'respondent') {
+        require_once 'app/controllers/RespondentController.php';
+        $controller = new RespondentController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
+
+        if (method_exists($controller, $method)) {
+            if ($param) $controller->{$method}($param);
+            else $controller->{$method}();
+        } else {
+            echo "Method not found";
+        }
+        exit;
+    }
+
+    // Routing Module Laporan
+    elseif ($url[0] == 'report') {
+        require_once 'app/controllers/ReportController.php';
+        $controller = new ReportController();
+        $controller->index(); // Hanya ada satu halaman utama
+        exit;
+    }
 }
 
 // Default jika url kosong / home

@@ -53,4 +53,29 @@ class Assessment
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    // Ambil detail jawaban + teks pertanyaannya berdasarkan ID Assessment
+    public function getDetailAnswers($assessment_id)
+    {
+        $query = "SELECT q.question, q.weight, a.answer_value 
+                  FROM assessment_answers a
+                  JOIN questions q ON a.question_id = q.id
+                  WHERE a.assessment_id = :id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $assessment_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Ambil ID Assessment terakhir milik User tertentu
+    public function getLastAssessmentId($user_id)
+    {
+        $query = "SELECT id FROM assessments WHERE user_id = :uid ORDER BY created_at DESC LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":uid", $user_id);
+        $stmt->execute();
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $res ? $res['id'] : null;
+    }
 }

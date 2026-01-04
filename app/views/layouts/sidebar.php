@@ -15,7 +15,7 @@
         <?php if ($_SESSION['role'] === 'admin'): ?>
             <div class="sidebar-label">ADMINISTRATION</div>
 
-            <a href="/sigma/users" class="list-group-item list-group-item-action">
+            <a href="/sigma/respondent" class="list-group-item list-group-item-action">
                 <i class="fas fa-users"></i> Data Responden
             </a>
 
@@ -27,7 +27,7 @@
                 <i class="fas fa-clipboard-list"></i> Manajemen Kuesioner
             </a>
 
-            <a href="/sigma/reports" class="list-group-item list-group-item-action">
+            <a href="/sigma/report" class="list-group-item list-group-item-action">
                 <i class="fas fa-chart-line"></i> Laporan Analisis
             </a>
 

@@ -538,6 +538,257 @@ html, body {
     background-color: #f8fdfb;
 }
 
+/* ========================================
+   USER DASHBOARD STYLES
+======================================== */
+
+/* User Welcome Banner */
+.user-welcome-banner {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #009d63;
+}
+
+.user-welcome-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.user-welcome-text {
+    font-size: 16px;
+    color: #6b7280;
+}
+
+.user-banner-illustration {
+    width: 120px;
+    height: 120px;
+    background: #f0fdf4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 40px;
+}
+
+.user-banner-illustration i {
+    font-size: 48px;
+    color: #009d63;
+}
+
+/* User Action Cards */
+.user-action-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    height: 100%;
+}
+
+.user-action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.user-action-card.card-assessment {
+    border-top: 4px solid #009d63;
+}
+
+.user-action-card.card-assessment:hover {
+    border-color: #009d63;
+}
+
+.user-action-card.card-simulator {
+    border-top: 4px solid #3b82f6;
+}
+
+.user-action-card.card-simulator:hover {
+    border-color: #3b82f6;
+}
+
+.user-action-card.card-education {
+    border-top: 4px solid #f59e0b;
+}
+
+.user-action-card.card-education:hover {
+    border-color: #f59e0b;
+}
+
+.user-action-card .card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.card-assessment .card-icon {
+    background: #ecfdf5;
+    color: #009d63;
+}
+
+.card-simulator .card-icon {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.card-education .card-icon {
+    background: #fffbeb;
+    color: #f59e0b;
+}
+
+.user-action-card .card-icon i {
+    font-size: 28px;
+}
+
+.card-action-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.card-action-desc {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+.btn-user-action {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: #f9fafb;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-user-action:hover {
+    background: #009d63;
+    color: #ffffff;
+    border-color: #009d63;
+    transform: translateX(4px);
+}
+
+/* User Progress Card */
+.user-progress-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    height: 100%;
+}
+
+.user-progress-card h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.progress-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 12px;
+}
+
+.progress-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.progress-icon.bg-success {
+    background: #ecfdf5;
+    color: #10b981;
+}
+
+.progress-icon.bg-info {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.progress-icon.bg-warning {
+    background: #fffbeb;
+    color: #f59e0b;
+}
+
+.progress-icon i {
+    font-size: 20px;
+}
+
+.progress-details h6 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.progress-details p {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+/* User Tips Card */
+.user-tips-card {
+    background: #fffbeb;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    height: 100%;
+    border: 2px solid #fef3c7;
+}
+
+.user-tips-card h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #92400e;
+}
+
+.tips-content p {
+    color: #78350f;
+    line-height: 1.6;
+}
+
+/* Responsive User Dashboard */
+@media (max-width: 768px) {
+    .user-welcome-banner {
+        padding: 24px;
+    }
+
+    .user-welcome-title {
+        font-size: 24px;
+    }
+
+    .user-action-card {
+        padding: 20px;
+    }
+
+    .user-progress-card,
+    .user-tips-card {
+        padding: 20px;
+    }
+}
+
 .badge {
     font-size: 0.85rem;
 }
