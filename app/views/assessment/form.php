@@ -14,17 +14,23 @@
 
             <!-- Assessment Header Card -->
             <div class="assessment-header-card mb-4">
+                <div class="d-flex align-items-start gap-3 mb-3">
+                    <a href="index.php?url=assessment" class="btn btn-light btn-sm">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
                 <div class="assessment-icon">
                     <i class="fas fa-clipboard-check"></i>
                 </div>
                 <div class="assessment-header-content">
-                    <h3 class="assessment-title">Kuesioner Analisis Risiko</h3>
-                    <p class="assessment-subtitle">Jawablah dengan jujur sesuai kondisi Anda dalam 12 bulan terakhir. Semua jawaban bersifat rahasia dan hanya untuk kepentingan analisis pribadi.</p>
+                    <h3 class="assessment-title"><?= htmlspecialchars($data['group']['title'] ?? 'Kuesioner Analisis Risiko') ?></h3>
+                    <p class="assessment-subtitle"><?= htmlspecialchars($data['group']['description'] ?? 'Jawablah dengan jujur sesuai kondisi Anda dalam 12 bulan terakhir. Semua jawaban bersifat rahasia dan hanya untuk kepentingan analisis pribadi.') ?></p>
                 </div>
             </div>
 
             <!-- Questions Form -->
             <form action="index.php?url=assessment/submit" method="POST" id="assessmentForm">
+                <input type="hidden" name="group_id" value="<?= $data['group']['id'] ?? '' ?>">
                 <?php foreach ($data['questions'] as $index => $row): ?>
                     <div class="question-card" data-question="<?= $index + 1 ?>">
                         <div class="question-number">

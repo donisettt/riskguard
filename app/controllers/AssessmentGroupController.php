@@ -1,36 +1,30 @@
 <?php
 require_once 'app/core/AuthMiddleware.php';
-require_once 'app/models/Question.php';
 require_once 'app/models/AssessmentGroup.php';
 
-class QuestionController
+class AssessmentGroupController
 {
-    private $questionModel;
     private $groupModel;
 
     public function __construct()
     {
         $db = (new Database())->getConnection();
-        $this->questionModel = new Question($db);
         $this->groupModel = new AssessmentGroup($db);
     }
 
+    // Halaman list grup assessment (admin)
     public function index()
     {
         AuthMiddleware::isAdmin();
 
-        $limit = 5;
+        $limit = 10;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $page = $page < 1 ? 1 : $page;
         $offset = ($page - 1) * $limit;
 
-        $data['title'] = 'Manajemen Kuesioner';
-
-        // ambil data dengan pagination
-        $data['questions'] = $this->questionModel->getPaginated($limit, $offset);
-
-        // total data & total halaman
-        $data['totalData'] = $this->questionModel->countAll();
+        $data['title'] = 'Manajemen Grup Assessment';
+        $data['groups'] = $this->groupModel->getPaginated($limit, $offset);
+        $data['totalData'] = $this->groupModel->countAll();
         $data['totalPages'] = ceil($data['totalData'] / $limit);
         $data['currentPage'] = $page;
         $data['limit'] = $limit;
@@ -38,65 +32,82 @@ class QuestionController
         require_once 'app/views/layouts/header.php';
         require_once 'app/views/layouts/sidebar.php';
         require_once 'app/views/layouts/navbar.php';
-        require_once 'app/views/questions/index.php';
+        require_once 'app/views/assessment_groups/index.php';
         require_once 'app/views/layouts/footer.php';
     }
 
-
+    // Halaman create grup
     public function create()
     {
         AuthMiddleware::isAdmin();
-        $data['title'] = 'Tambah Pertanyaan';
-        $data['groups'] = $this->groupModel->getAll();
+        $data['title'] = 'Tambah Grup Assessment';
 
         require_once 'app/views/layouts/header.php';
         require_once 'app/views/layouts/sidebar.php';
         require_once 'app/views/layouts/navbar.php';
-        require_once 'app/views/questions/create.php';
+        require_once 'app/views/assessment_groups/create.php';
         require_once 'app/views/layouts/footer.php';
     }
 
+    // Proses simpan grup baru
     public function store()
     {
         AuthMiddleware::isAdmin();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $group_id = !empty($_POST['group_id']) ? $_POST['group_id'] : null;
-            if ($this->questionModel->create($_POST['question'], $_POST['weight'], $group_id)) {
-                header("Location: index.php?url=questions");
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+
+            if ($this->groupModel->create($title, $description)) {
+                header("Location: index.php?url=assessment-groups");
+            } else {
+                echo "Gagal menyimpan data.";
             }
         }
     }
 
+    // Halaman edit grup
     public function edit($id)
     {
         AuthMiddleware::isAdmin();
-        $data['title'] = 'Edit Pertanyaan';
-        $data['q'] = $this->questionModel->getById($id);
-        $data['groups'] = $this->groupModel->getAll();
+        $data['title'] = 'Edit Grup Assessment';
+        $data['group'] = $this->groupModel->getById($id);
+
+        if (!$data['group']) {
+            header("Location: index.php?url=assessment-groups");
+            exit;
+        }
 
         require_once 'app/views/layouts/header.php';
         require_once 'app/views/layouts/sidebar.php';
         require_once 'app/views/layouts/navbar.php';
-        require_once 'app/views/questions/edit.php';
+        require_once 'app/views/assessment_groups/edit.php';
         require_once 'app/views/layouts/footer.php';
     }
 
+    // Proses update grup
     public function update($id)
     {
         AuthMiddleware::isAdmin();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $group_id = !empty($_POST['group_id']) ? $_POST['group_id'] : null;
-            if ($this->questionModel->update($id, $_POST['question'], $_POST['weight'], $group_id)) {
-                header("Location: index.php?url=questions");
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+
+            if ($this->groupModel->update($id, $title, $description)) {
+                header("Location: index.php?url=assessment-groups");
+            } else {
+                echo "Gagal mengupdate data.";
             }
         }
     }
 
+    // Hapus grup
     public function delete($id)
     {
         AuthMiddleware::isAdmin();
-        if ($this->questionModel->delete($id)) {
-            header("Location: index.php?url=questions");
+        if ($this->groupModel->delete($id)) {
+            header("Location: index.php?url=assessment-groups");
+        } else {
+            echo "Gagal menghapus data.";
         }
     }
 }

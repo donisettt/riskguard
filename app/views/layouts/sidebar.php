@@ -23,8 +23,12 @@
                 <i class="fas fa-book-open"></i> Kelola Edukasi
             </a>
 
+            <a href="/sigma/assessment-groups" class="list-group-item list-group-item-action">
+                <i class="fas fa-layer-group"></i> Grup Assessment
+            </a>
+
             <a href="/sigma/questions" class="list-group-item list-group-item-action">
-                <i class="fas fa-clipboard-list"></i> Manajemen Kuesioner
+                <i class="fas fa-clipboard-list"></i> Bank Soal
             </a>
 
             <a href="/sigma/report" class="list-group-item list-group-item-action">

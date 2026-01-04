@@ -3,14 +3,14 @@
     <!-- HEADER -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
-            <div class="icon-shape bg-success text-white">
-                <i class="fas fa-clipboard-list"></i>
+            <div class="icon-shape bg-primary text-white">
+                <i class="fas fa-layer-group"></i>
             </div>
-            <h4 class="mb-0 fw-semibold">Bank Soal Assessment</h4>
+            <h4 class="mb-0 fw-semibold">Manajemen Grup Assessment</h4>
         </div>
 
-        <a href="index.php?url=questions/create" class="btn btn-success px-4">
-            <i class="fas fa-plus me-2"></i> Tambah Soal
+        <a href="index.php?url=assessment-groups/create" class="btn btn-primary px-4">
+            <i class="fas fa-plus me-2"></i> Tambah Grup
         </a>
     </div>
 
@@ -23,9 +23,9 @@
                     <thead class="table-light border-bottom">
                         <tr class="text-uppercase small text-muted">
                             <th class="ps-4" width="5%">No</th>
-                            <th>Pertanyaan</th>
-                            <th width="18%">Grup Assessment</th>
-                            <th class="text-center" width="12%">Bobot Risiko</th>
+                            <th>Judul Grup</th>
+                            <th>Deskripsi</th>
+                            <th class="text-center" width="12%">Jumlah Soal</th>
                             <th class="text-center pe-4" width="15%">Aksi</th>
                         </tr>
                     </thead>
@@ -33,31 +33,27 @@
                     <tbody>
                         <?php
                         $no = ($data['currentPage'] - 1) * $data['limit'] + 1;
-                        foreach ($data['questions'] as $row): ?>
+                        foreach ($data['groups'] as $row): ?>
                             <tr>
                                 <td class="ps-4 fw-semibold"><?= $no++ ?></td>
-                                <td><?= htmlspecialchars($row['question']) ?></td>
                                 <td>
-                                    <?php if (!empty($row['group_title'])): ?>
-                                        <span class="badge bg-primary"><?= htmlspecialchars($row['group_title']) ?></span>
-                                    <?php else: ?>
-                                        <span class="text-muted small">Tidak ada grup</span>
-                                    <?php endif; ?>
+                                    <div class="fw-semibold text-primary"><?= htmlspecialchars($row['title']) ?></div>
                                 </td>
+                                <td><?= htmlspecialchars($row['description'] ?? '-') ?></td>
                                 <td class="text-center">
                                     <span class="badge rounded-pill bg-info text-dark px-3 py-2">
-                                        <?= number_format($row['weight'], 2) ?>
+                                        <?= $row['total_questions'] ?? 0 ?> Soal
                                     </span>
                                 </td>
                                 <td class="text-center pe-4">
                                     <div class="d-flex justify-content-center gap-2">
-                                        <a href="index.php?url=questions/edit/<?= $row['id'] ?>"
+                                        <a href="index.php?url=assessment-groups/edit/<?= $row['id'] ?>"
                                             class="btn btn-sm btn-warning text-white">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="index.php?url=questions/delete/<?= $row['id'] ?>"
+                                        <a href="index.php?url=assessment-groups/delete/<?= $row['id'] ?>"
                                             class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Hapus soal ini?')">
+                                            onclick="return confirm('Hapus grup ini? Soal yang terhubung tidak akan dihapus.')">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
@@ -65,11 +61,11 @@
                             </tr>
                         <?php endforeach; ?>
 
-                        <?php if (empty($data['questions'])): ?>
+                        <?php if (empty($data['groups'])): ?>
                             <tr>
                                 <td colspan="5" class="text-center py-5 text-muted">
                                     <i class="fas fa-folder-open fa-2x mb-2"></i>
-                                    <div>Belum ada soal</div>
+                                    <div>Belum ada grup assessment</div>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -88,7 +84,7 @@
 
                             <li class="page-item <?= $data['currentPage'] <= 1 ? 'disabled' : '' ?>">
                                 <a class="page-link"
-                                    href="index.php?url=questions&page=<?= $data['currentPage'] - 1 ?>">
+                                    href="index.php?url=assessment-groups&page=<?= $data['currentPage'] - 1 ?>">
                                     &laquo;
                                 </a>
                             </li>
@@ -96,7 +92,7 @@
                             <?php for ($i = 1; $i <= $data['totalPages']; $i++): ?>
                                 <li class="page-item <?= $i == $data['currentPage'] ? 'active' : '' ?>">
                                     <a class="page-link"
-                                        href="index.php?url=questions&page=<?= $i ?>">
+                                        href="index.php?url=assessment-groups&page=<?= $i ?>">
                                         <?= $i ?>
                                     </a>
                                 </li>
@@ -104,7 +100,7 @@
 
                             <li class="page-item <?= $data['currentPage'] >= $data['totalPages'] ? 'disabled' : '' ?>">
                                 <a class="page-link"
-                                    href="index.php?url=questions&page=<?= $data['currentPage'] + 1 ?>">
+                                    href="index.php?url=assessment-groups&page=<?= $data['currentPage'] + 1 ?>">
                                     &raquo;
                                 </a>
                             </li>

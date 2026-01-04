@@ -9,11 +9,12 @@ class Assessment
     }
 
     // Simpan Header Assessment
-    public function create($user_id, $total_score, $risk_level)
+    public function create($user_id, $total_score, $risk_level, $group_id = null)
     {
-        $query = "INSERT INTO assessments (user_id, total_score, risk_level) VALUES (:user_id, :total_score, :risk_level)";
+        $query = "INSERT INTO assessments (user_id, group_id, total_score, risk_level) VALUES (:user_id, :group_id, :total_score, :risk_level)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":user_id", $user_id);
+        $stmt->bindParam(":group_id", $group_id);
         $stmt->bindParam(":total_score", $total_score);
         $stmt->bindParam(":risk_level", $risk_level);
 

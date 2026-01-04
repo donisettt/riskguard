@@ -7,6 +7,19 @@
             <div class="card-body">
                 <form action="index.php?url=questions/update/<?= $data['q']['id'] ?>" method="POST">
                     <div class="mb-3">
+                        <label class="form-label">Grup Assessment</label>
+                        <select name="group_id" class="form-select">
+                            <option value="">-- Pilih Grup (Opsional) --</option>
+                            <?php foreach ($data['groups'] as $group): ?>
+                                <option value="<?= $group['id'] ?>" <?= ($data['q']['group_id'] == $group['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($group['title']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <small class="text-muted">Pilih grup untuk mengelompokkan soal berdasarkan kategori</small>
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Teks Pertanyaan</label>
                         <textarea name="question" class="form-control" rows="3" required><?= htmlspecialchars($data['q']['question']) ?></textarea>
                     </div>

@@ -1,7 +1,7 @@
 <?php
 require_once 'app/models/User.php';
 
-class ApiAuthController
+class AuthController
 {
     private $userModel;
     private $db;
@@ -127,7 +127,7 @@ class ApiAuthController
     private function sendResponse($statusCode, $success, $message, $data = null)
     {
         http_response_code($statusCode);
-        
+
         $response = [
             'success' => $success,
             'message' => $message
@@ -157,7 +157,7 @@ class ApiAuthController
         try {
             $decoded = base64_decode($token);
             $parts = explode('|', $decoded);
-            
+
             if (count($parts) !== 3) {
                 return false;
             }

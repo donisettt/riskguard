@@ -2,12 +2,14 @@
 require_once 'app/core/AuthMiddleware.php';
 require_once 'app/models/Question.php';
 require_once 'app/models/Assessment.php';
+require_once 'app/models/AssessmentGroup.php';
 
 class AssessmentController
 {
     private $db;
     private $questionModel;
     private $assessmentModel;
+    private $groupModel;
 
     public function __construct()
     {
@@ -15,15 +17,43 @@ class AssessmentController
         $this->db = $database->getConnection();
         $this->questionModel = new Question($this->db);
         $this->assessmentModel = new Assessment($this->db);
+        $this->groupModel = new AssessmentGroup($this->db);
     }
 
-    // Halaman Form Kuesioner
+    // Halaman List Grup Assessment (User memilih grup)
     public function index()
     {
         AuthMiddleware::check();
 
-        $data['title'] = 'Self Assessment Risiko Judi Online';
-        $data['questions'] = $this->questionModel->getAll();
+        $data['title'] = 'Pilih Grup Assessment';
+        $data['groups'] = $this->groupModel->getGroupsWithQuestions();
+
+        require_once 'app/views/layouts/header.php';
+        require_once 'app/views/layouts/sidebar.php';
+        require_once 'app/views/layouts/navbar.php';
+        require_once 'app/views/assessment/group_list.php';
+        require_once 'app/views/layouts/footer.php';
+    }
+
+    // Halaman Form Kuesioner berdasarkan grup
+    public function form($group_id)
+    {
+        AuthMiddleware::check();
+
+        $group = $this->groupModel->getById($group_id);
+        if (!$group) {
+            header("Location: index.php?url=assessment");
+            exit;
+        }
+
+        $data['title'] = 'Assessment: ' . $group['title'];
+        $data['group'] = $group;
+        $data['questions'] = $this->questionModel->getByGroupId($group_id);
+
+        if (empty($data['questions'])) {
+            echo "<script>alert('Grup ini belum memiliki soal.'); window.location.href='index.php?url=assessment';</script>";
+            exit;
+        }
 
         require_once 'app/views/layouts/header.php';
         require_once 'app/views/layouts/sidebar.php';
@@ -39,6 +69,7 @@ class AssessmentController
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $answers = $_POST['answers']; // Array [question_id => value]
+            $group_id = $_POST['group_id'] ?? null;
             $user_id = $_SESSION['user_id'];
 
             $total_score = 0;
@@ -65,7 +96,7 @@ class AssessmentController
             }
 
             // 3. Simpan Header
-            $assessment_id = $this->assessmentModel->create($user_id, $total_score, $risk_level);
+            $assessment_id = $this->assessmentModel->create($user_id, $total_score, $risk_level, $group_id);
 
             // 4. Simpan Detail Jawaban
             if ($assessment_id) {

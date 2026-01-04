@@ -14,6 +14,36 @@ $methodName = 'index';
 
 // Routing Logika
 if (isset($url[0])) {
+    // Route untuk API (semua endpoint API dimulai dengan /api)
+    if ($url[0] == 'api') {
+        // API Authentication
+        if (isset($url[1]) && $url[1] == 'auth') {
+            require_once 'app/api/controllers/AuthController.php';
+            $controller = new AuthController();
+
+            if (isset($url[2])) {
+                if ($url[2] == 'login') {
+                    $controller->login();
+                } elseif ($url[2] == 'register') {
+                    $controller->register();
+                } else {
+                    http_response_code(404);
+                    echo json_encode(['success' => false, 'message' => 'API endpoint not found']);
+                }
+            } else {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'message' => 'Invalid API request']);
+            }
+            exit;
+        }
+
+        // API endpoint tidak ditemukan
+        http_response_code(404);
+        echo json_encode(['success' => false, 'message' => 'API endpoint not found']);
+        exit;
+    }
+
+    // ============ WEB ROUTES ============
     // Route Auth (Login/Register/Logout)
     if (in_array($url[0], ['login', 'register', 'logout'])) {
         require_once 'app/controllers/AuthController.php';
@@ -57,6 +87,23 @@ if (isset($url[0])) {
         exit;
     }
 
+    // Routing Module Assessment Groups (Admin)
+    elseif ($url[0] == 'assessment-groups') {
+        require_once 'app/controllers/AssessmentGroupController.php';
+        $controller = new AssessmentGroupController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
+
+        if (method_exists($controller, $method)) {
+            if ($param) $controller->{$method}($param);
+            else $controller->{$method}();
+        } else {
+            echo "Method not found";
+        }
+        exit;
+    }
+
     // Routing Module Questions (Kuesioner)
     elseif ($url[0] == 'questions') {
         require_once 'app/controllers/QuestionController.php';
@@ -80,9 +127,11 @@ if (isset($url[0])) {
         $controller = new AssessmentController();
 
         $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
 
         if (method_exists($controller, $method)) {
-            $controller->{$method}();
+            if ($param) $controller->{$method}($param);
+            else $controller->{$method}();
         } else {
             echo "Method not found";
         }
