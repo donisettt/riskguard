@@ -27,6 +27,7 @@ class AuthController
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['name'] = $user['name'];
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['balance'] = $user['balance']; // Simpan balance ke session
 
                 // Gunakan redirect yang fleksibel
                 header("Location: index.php?url=dashboard");

@@ -14,11 +14,6 @@
 
             <!-- Assessment Header Card -->
             <div class="assessment-header-card mb-4">
-                <div class="d-flex align-items-start gap-3 mb-3">
-                    <a href="index.php?url=assessment" class="btn btn-light btn-sm">
-                        <i class="fas fa-arrow-left"></i> Kembali
-                    </a>
-                </div>
                 <div class="assessment-icon">
                     <i class="fas fa-clipboard-check"></i>
                 </div>

@@ -29,7 +29,7 @@ class User
 
     public function login($email, $password)
     {
-        $query = "SELECT id, name, email, password, role FROM " . $this->table_name . " WHERE email = :email";
+        $query = "SELECT id, name, email, password, role, balance FROM " . $this->table_name . " WHERE email = :email";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":email", $email);
         $stmt->execute();
@@ -41,6 +41,25 @@ class User
             }
         }
         return false; // Login Gagal
+    }
+
+    public function getBalance($user_id)
+    {
+        $query = "SELECT balance FROM " . $this->table_name . " WHERE id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['balance'] : 1000000;
+    }
+
+    public function updateBalance($user_id, $balance)
+    {
+        $query = "UPDATE " . $this->table_name . " SET balance = :balance WHERE id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":balance", $balance);
+        $stmt->bindParam(":user_id", $user_id);
+        return $stmt->execute();
     }
 
     public function getAllResponden()

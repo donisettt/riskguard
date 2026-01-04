@@ -1,14 +1,18 @@
-<div class="container-fluid py-4">
-    <!-- Header -->
+<div class="container-fluid py-3">
+    <!-- Header Section -->
     <div class="row mb-4">
-        <div class="col-md-12 text-center">
-            <h2 class="fw-bold text-primary">
-                <i class="fas fa-gamepad"></i> Simulator RNG (Random Number Generator)
-            </h2>
-            <p class="text-muted mb-0">
-                Pilih game judi online untuk membuktikan bahwa dalam jangka panjang,
-                <strong>Bandar Selalu Menang</strong>.
-            </p>
+        <div class="col-12">
+            <div class="header-box">
+                <div class="header-content">
+                    <div class="header-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1 class="title">Simulator RNG</h1>
+                        <p class="subtitle">Pilih game untuk membuktikan bahwa <span class="highlight">Bandar Selalu Menang</span></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -24,53 +28,74 @@
         ?>
     <?php endif; ?>
 
+    <!-- Warning Box -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="warning-box">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="warning-content">
+                    <h5 class="warning-title">Peringatan Edukasi</h5>
+                    <p class="warning-text">
+                        Simulator ini dirancang untuk menunjukkan bahwa <strong>semua game judi online menggunakan
+                            algoritma RNG (Random Number Generator) yang menguntungkan bandar</strong>, bukan pemain.
+                    </p>
+                    <ul class="warning-list">
+                        <li>RTP (Return to Player) adalah persentase teoretis yang dikembalikan dalam JANGKA PANJANG</li>
+                        <li>Kemenangan sesekali adalah "umpan" agar Anda terus bermain</li>
+                        <li>Dalam 100 putaran atau lebih, saldo Anda akan terus menurun</li>
+                        <li>Testimoni "maxwin" di media sosial seringkali PALSU atau hasil editan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Game Selection Cards -->
     <?php if (!empty($data['games'])): ?>
-        <div class="row g-4">
+        <div class="row g-4 mb-5">
             <?php foreach ($data['games'] as $game): ?>
-                <div class="col-md-4 col-lg-3">
-                    <div class="card game-card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-4">
-                            <!-- Game Icon/Symbol -->
-                            <div class="game-icon mb-3">
-                                <span style="font-size: 4rem;">
-                                    <?= explode(',', $game['symbols'])[0] ?>
-                                </span>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="game-card">
+                        <div class="game-card-header">
+                            <div class="game-icon">
+                                <?= explode(',', $game['symbols'])[0] ?>
                             </div>
-
-                            <!-- Game Title -->
-                            <h5 class="fw-bold mb-2"><?= htmlspecialchars($game['name']) ?></h5>
-
-                            <!-- Game Type Badge -->
-                            <span class="badge bg-info text-dark mb-3">
+                            <span class="game-type-badge">
                                 <?= htmlspecialchars($game['game_type']) ?>
                             </span>
+                        </div>
 
-                            <!-- Game Stats -->
-                            <div class="game-stats mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-muted">RTP:</small>
-                                    <span class="badge bg-warning text-dark"><?= $game['rtp'] ?>%</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-muted">Taruhan:</small>
-                                    <strong class="text-primary">Rp <?= number_format($game['bet_cost'], 0, ',', '.') ?></strong>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">Max Win:</small>
-                                    <strong class="text-success">Rp <?= number_format($game['max_payout'], 0, ',', '.') ?></strong>
-                                </div>
-                            </div>
+                        <div class="game-card-body">
+                            <h5 class="game-title"><?= htmlspecialchars($game['name']) ?></h5>
 
-                            <!-- Description Preview -->
-                            <p class="text-muted small mb-3" style="height: 60px; overflow: hidden;">
-                                <?= htmlspecialchars(substr($game['description'], 0, 100)) ?>...
+                            <p class="game-description">
+                                <?= htmlspecialchars(substr($game['description'], 0, 80)) ?>...
                             </p>
 
-                            <!-- Play Button -->
-                            <a href="/sigma/simulator/play/<?= $game['id'] ?>"
-                                class="btn btn-primary btn-lg w-100">
-                                <i class="fas fa-play"></i> Main Sekarang
+                            <div class="game-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">RTP</span>
+                                    <span class="stat-value rtp"><?= $game['rtp'] ?>%</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Taruhan</span>
+                                    <span class="stat-value">Rp <?= number_format($game['bet_cost'], 0, ',', '.') ?></span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Max Win</span>
+                                    <span class="stat-value win">Rp <?= number_format($game['max_payout'], 0, ',', '.') ?></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="game-card-footer">
+                            <a href="/sigma/simulator/play/<?= $game['id'] ?>" class="play-btn">
+                                <i class="fas fa-play"></i>
+                                <span>Main Sekarang</span>
                             </a>
                         </div>
                     </div>
@@ -78,96 +103,19 @@
             <?php endforeach; ?>
         </div>
 
-        <!-- Info Box -->
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <div class="alert alert-warning border-0 shadow-sm">
-                    <div class="d-flex align-items-start">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-exclamation-triangle fa-2x text-warning"></i>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <h5 class="fw-bold mb-2">⚠️ Peringatan Edukasi</h5>
-                            <p class="mb-2">
-                                Simulator ini dirancang untuk menunjukkan bahwa <strong>semua game judi online menggunakan
-                                    algoritma RNG (Random Number Generator) yang menguntungkan bandar</strong>, bukan pemain.
-                            </p>
-                            <ul class="mb-0">
-                                <li>RTP (Return to Player) adalah persentase teoretis yang dikembalikan dalam JANGKA PANJANG</li>
-                                <li>Kemenangan sesekali adalah "umpan" agar Anda terus bermain</li>
-                                <li>Dalam 100 putaran atau lebih, saldo Anda akan terus menurun</li>
-                                <li>Testimoni "maxwin" di media sosial seringkali PALSU atau hasil editan</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     <?php else: ?>
         <!-- Empty State -->
         <div class="row">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center py-5">
-                        <i class="fas fa-ghost fa-5x text-muted mb-4"></i>
-                        <h4 class="fw-bold mb-3">Tidak Ada Game Tersedia</h4>
-                        <p class="text-muted">
-                            Saat ini belum ada game RNG yang aktif. Silakan hubungi admin untuk informasi lebih lanjut.
-                        </p>
-                    </div>
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="fas fa-ghost"></i>
+                    <h4>Tidak Ada Game Tersedia</h4>
+                    <p>Saat ini belum ada game RNG yang aktif. Silakan hubungi admin untuk informasi lebih lanjut.</p>
                 </div>
             </div>
         </div>
     <?php endif; ?>
 </div>
 
-<style>
-    .game-card {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .game-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
-    }
-
-    .game-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s;
-    }
-
-    .game-card:hover::before {
-        left: 100%;
-    }
-
-    .game-icon {
-        animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    .game-stats {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 10px;
-    }
-</style>
+<!-- Simulator Page Styles -->
+<link rel="stylesheet" href="/sigma/public/css/simulator.css">

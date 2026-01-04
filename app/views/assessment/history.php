@@ -22,9 +22,6 @@
             </div>
             <h4 class="empty-title">Belum Ada Riwayat</h4>
             <p class="empty-text">Anda belum melakukan assessment. Mulai sekarang untuk mengetahui tingkat risiko Anda.</p>
-            <a href="/sigma/assessment" class="btn btn-empty-action">
-                <i class="fas fa-play me-2"></i>Mulai Assessment
-            </a>
         </div>
     <?php else: ?>
         <!-- Statistics Summary -->
