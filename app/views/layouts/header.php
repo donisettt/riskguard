@@ -14,6 +14,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/sigma/public/css/style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>

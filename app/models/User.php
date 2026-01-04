@@ -42,4 +42,16 @@ class User
         }
         return false; // Login Gagal
     }
+
+    public function getAllResponden()
+    {
+        // Query Join untuk mengambil user dan hasil assessment terbarunya
+        $query = "SELECT u.id, u.name, u.email, u.role, 
+              (SELECT risk_level FROM assessments WHERE user_id = u.id ORDER BY created_at DESC LIMIT 1) as last_risk,
+              (SELECT total_score FROM assessments WHERE user_id = u.id ORDER BY created_at DESC LIMIT 1) as last_score
+              FROM users u WHERE u.role = 'user'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

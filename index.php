@@ -10,7 +10,7 @@ $url = explode('/', $url);
 
 // Controller Default
 $controllerName = 'AuthController';
-$methodName = 'index'; // Default method (biasanya halaman login)
+$methodName = 'index';
 
 // Routing Logika
 if (isset($url[0])) {
@@ -25,6 +25,14 @@ if (isset($url[0])) {
         } else {
             $controller->login();
         }
+        exit;
+    }
+
+    // Route Dashboard
+    elseif ($url[0] == 'dashboard') {
+        require_once 'app/controllers/DashboardController.php';
+        $controller = new DashboardController();
+        $controller->index();
         exit;
     }
 
@@ -49,14 +57,6 @@ if (isset($url[0])) {
         exit;
     }
 
-    // Route Dashboard
-    elseif ($url[0] == 'dashboard') {
-        require_once 'app/controllers/DashboardController.php';
-        $controller = new DashboardController();
-        $controller->index();
-        exit;
-    }
-
     // Routing Module Questions (Kuesioner)
     elseif ($url[0] == 'questions') {
         require_once 'app/controllers/QuestionController.php';
@@ -70,6 +70,36 @@ if (isset($url[0])) {
             else $controller->{$method}();
         } else {
             echo "Method not found";
+        }
+        exit;
+    }
+
+    // Routing Module Assessment (User Side)
+    elseif ($url[0] == 'assessment') {
+        require_once 'app/controllers/AssessmentController.php';
+        $controller = new AssessmentController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+
+        if (method_exists($controller, $method)) {
+            $controller->{$method}();
+        } else {
+            echo "Method not found";
+        }
+        exit;
+    }
+
+    // Routing Module Simulator
+    elseif ($url[0] == 'simulator') {
+        require_once 'app/controllers/SimulatorController.php';
+        $controller = new SimulatorController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+
+        if (method_exists($controller, $method)) {
+            $controller->{$method}();
+        } else {
+            $controller->index();
         }
         exit;
     }
