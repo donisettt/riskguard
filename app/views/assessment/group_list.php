@@ -48,11 +48,27 @@
                             </div>
 
                             <div class="group-card-footer">
-                                <a href="index.php?url=assessment/form/<?= $group['id'] ?>"
-                                    class="btn btn-start">
-                                    Mulai Assessment
-                                    <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
+                                <?php if ($group['is_completed']): ?>
+                                    <button class="btn btn-disabled" disabled>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <div>
+                                                <i class="fas fa-check-circle me-2"></i>
+                                                Sudah Dikerjakan
+                                            </div>
+                                            <?php if ($group['completed_date']): ?>
+                                                <small class="mt-1" style="font-size: 11px; opacity: 0.8;">
+                                                    <?= date('d M Y, H:i', strtotime($group['completed_date'])) ?>
+                                                </small>
+                                            <?php endif; ?>
+                                        </div>
+                                    </button>
+                                <?php else: ?>
+                                    <a href="index.php?url=assessment/form/<?= $group['id'] ?>"
+                                        class="btn btn-start">
+                                        Mulai Assessment
+                                        <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
+                                <?php endif; ?>
                             </div>
 
                         </div>
@@ -218,6 +234,43 @@
     .btn-start:hover {
         background: var(--green-dark);
         transform: translateY(-2px);
+    }
+
+    .btn-disabled {
+        width: 100%;
+        background: #e2e8f0;
+        border: none;
+        color: #64748b;
+        padding: 14px;
+        border-radius: 14px;
+        font-weight: 600;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    /* COMPLETED BADGE */
+    .completed-badge {
+        background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+        border: 1.5px solid #86efac;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--green-dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .completed-badge i {
+        font-size: 16px;
+    }
+
+    .completed-badge small {
+        font-size: 12px;
+        font-weight: 500;
+        color: #15803d;
+        margin-left: 24px;
     }
 
     /* EMPTY */

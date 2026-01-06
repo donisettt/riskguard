@@ -25,8 +25,23 @@ class AssessmentController
     {
         AuthMiddleware::check();
 
+        // Prevent caching
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
         $data['title'] = 'Pilih Grup Assessment';
-        $data['groups'] = $this->groupModel->getGroupsWithQuestions();
+        $groups = $this->groupModel->getGroupsWithQuestions();
+
+        // Cek status assessment untuk setiap grup
+        $user_id = $_SESSION['user_id'];
+        foreach ($groups as &$group) {
+            $group['is_completed'] = $this->assessmentModel->hasCompletedGroup($user_id, $group['id']);
+            $group['completed_date'] = $this->assessmentModel->getLastCompletedDate($user_id, $group['id']);
+        }
+        unset($group); // PENTING: hapus reference untuk menghindari bug
+
+        $data['groups'] = $groups;
 
         require_once 'app/views/layouts/header.php';
         require_once 'app/views/layouts/sidebar.php';
@@ -43,6 +58,13 @@ class AssessmentController
         $group = $this->groupModel->getById($group_id);
         if (!$group) {
             header("Location: index.php?url=assessment");
+            exit;
+        }
+
+        // Cek apakah user sudah pernah mengikuti assessment ini
+        $user_id = $_SESSION['user_id'];
+        if ($this->assessmentModel->hasCompletedGroup($user_id, $group_id)) {
+            echo "<script>alert('Anda sudah pernah mengikuti assessment ini.'); window.location.href='index.php?url=assessment';</script>";
             exit;
         }
 

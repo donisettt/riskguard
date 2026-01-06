@@ -293,8 +293,28 @@
     margin: 0 auto;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Force 3 Columns Layout - Override Bootstrap */
+.row.g-4 > div[class*="col-"] {
+    flex: 0 0 auto !important;
+    width: 33.333333% !important;
+    max-width: 33.333333% !important;
+}
+
+/* Tablet - 2 columns */
+@media (max-width: 991px) {
+    .row.g-4 > div[class*="col-"] {
+        width: 50% !important;
+        max-width: 50% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    /* 1 column on mobile */
+    .row.g-4 > [class*="col-"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
     .header-box {
         padding: 30px 20px;
     }

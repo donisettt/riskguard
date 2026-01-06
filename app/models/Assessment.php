@@ -79,4 +79,28 @@ class Assessment
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
         return $res ? $res['id'] : null;
     }
+
+    // Cek apakah user sudah pernah mengikuti assessment dari grup tertentu
+    public function hasCompletedGroup($user_id, $group_id)
+    {
+        $query = "SELECT COUNT(*) as count FROM assessments WHERE user_id = :user_id AND group_id = :group_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+        $stmt->bindParam(":group_id", $group_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    }
+
+    // Ambil tanggal terakhir user mengikuti assessment dari grup tertentu
+    public function getLastCompletedDate($user_id, $group_id)
+    {
+        $query = "SELECT created_at FROM assessments WHERE user_id = :user_id AND group_id = :group_id ORDER BY created_at DESC LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+        $stmt->bindParam(":group_id", $group_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['created_at'] : null;
+    }
 }

@@ -56,7 +56,7 @@
     <?php if (!empty($data['games'])): ?>
         <div class="row g-4 mb-5">
             <?php foreach ($data['games'] as $game): ?>
-                <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="col-md-6 col-lg-4">
                     <div class="game-card">
                         <div class="game-card-header">
                             <div class="game-icon">

@@ -21,9 +21,9 @@
         <div class="user-welcome-banner mb-4">
             <div class="row align-items-center">
                 <div class="col-lg-8">
-                    <h2 class="user-welcome-title mb-2">Halo, <?= $data['user']; ?>! 👋</h2>
-                    <p class="user-welcome-text mb-3">Selamat datang kembali di SIGMA Assessment Platform</p>
-                    <p class="text-muted mb-0"><i class="fas fa-info-circle me-2"></i>Platform untuk mengukur dan meningkatkan kesadaran diri Anda</p>
+                    <h2 class="user-welcome-title mb-2">Selamat Datang, <?= $data['user']; ?>! 👋</h2>
+                    <p class="user-welcome-text mb-3">Mari tingkatkan kesadaran diri terhadap risiko perilaku judi online</p>
+                    <p class="text-muted mb-0"><i class="fas fa-info-circle me-2"></i>SIGMA membantu Anda memahami potensi risiko perilaku judi online</p>
                 </div>
                 <div class="col-lg-4 text-end d-none d-lg-block">
                     <div class="user-banner-illustration">
@@ -112,10 +112,10 @@
                     <div class="card-icon">
                         <i class="fas fa-clipboard-list"></i>
                     </div>
-                    <h5 class="card-action-title">Mulai Assessment</h5>
-                    <p class="card-action-desc">Cek tingkat risiko perilaku Anda</p>
+                    <h5 class="card-action-title">Assessment Risiko</h5>
+                    <p class="card-action-desc">Evaluasi tingkat risiko perilaku judi online Anda secara komprehensif</p>
                     <a href="/sigma/assessment" class="btn btn-user-action">
-                        <i class="fas fa-arrow-right me-2"></i>Mulai Sekarang
+                        <i class="fas fa-arrow-right me-2"></i>Mulai Assessment
                     </a>
                 </div>
             </div>
@@ -124,8 +124,8 @@
                     <div class="card-icon">
                         <i class="fas fa-gamepad"></i>
                     </div>
-                    <h5 class="card-action-title">Coba Simulator</h5>
-                    <p class="card-action-desc">Latihan dengan simulator interaktif</p>
+                    <h5 class="card-action-title">Simulator Judi Online</h5>
+                    <p class="card-action-desc">Pahami mekanisme judi online dalam lingkungan aman dan terkontrol</p>
                     <a href="/sigma/simulator" class="btn btn-user-action">
                         <i class="fas fa-arrow-right me-2"></i>Buka Simulator
                     </a>
@@ -137,63 +137,10 @@
                         <i class="fas fa-book-open"></i>
                     </div>
                     <h5 class="card-action-title">Materi Edukasi</h5>
-                    <p class="card-action-desc">Pelajari lebih lanjut tentang risiko</p>
+                    <p class="card-action-desc">Pelajari dampak dan cara mencegah kecanduan judi online</p>
                     <a href="/sigma/education" class="btn btn-user-action">
                         <i class="fas fa-arrow-right me-2"></i>Lihat Materi
                     </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- User Progress Section -->
-        <div class="row g-4 mb-4">
-            <div class="col-lg-8">
-                <div class="user-progress-card">
-                    <h5 class="mb-4"><i class="fas fa-chart-line me-2"></i>Progress Anda</h5>
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <div class="progress-item">
-                                <div class="progress-icon bg-success">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="progress-details">
-                                    <h6>Assessment</h6>
-                                    <p class="text-muted mb-0">0 Selesai</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="progress-item">
-                                <div class="progress-icon bg-info">
-                                    <i class="fas fa-book"></i>
-                                </div>
-                                <div class="progress-details">
-                                    <h6>Materi Dipelajari</h6>
-                                    <p class="text-muted mb-0">0 Materi</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="progress-item">
-                                <div class="progress-icon bg-warning">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                                <div class="progress-details">
-                                    <h6>Level Anda</h6>
-                                    <p class="text-muted mb-0">Pemula</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="user-tips-card">
-                    <h5 class="mb-3"><i class="fas fa-lightbulb me-2"></i>Tips Hari Ini</h5>
-                    <div class="tips-content">
-                        <p class="mb-3">💡 Lakukan assessment secara berkala untuk memantau perkembangan kesadaran diri Anda.</p>
-                        <p class="mb-0 text-muted small">Konsistensi adalah kunci untuk pemahaman yang lebih baik.</p>
-                    </div>
                 </div>
             </div>
         </div>

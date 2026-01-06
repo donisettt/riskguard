@@ -118,6 +118,11 @@ html, body {
     display: block;
 }
 
+/* Sidebar Section Wrapper */
+.sidebar-section {
+    margin-bottom: 4px;
+}
+
 /* Navigation Items - Base Style */
 #sidebar-wrapper .list-group-item {
     display: flex;
@@ -876,13 +881,12 @@ html, body {
 }
 
 .icon-shape {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    border-radius: 12px;
 }
 
 /* ========== PREMIUM DASHBOARD COMPONENTS ========== */
@@ -1432,4 +1436,77 @@ html {
 
 .table-hover tbody tr:hover {
     background-color: #f8fdfb;
+}
+
+/* ========== ASSESSMENT PAGE STYLES ========== */
+.assessment-wrapper {
+    padding: 0;
+}
+
+.assessment-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.25rem;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    box-shadow: var(--card-shadow);
+    border-left: 4px solid var(--primary-color);
+}
+
+.assessment-header .header-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(0, 157, 99, 0.1);
+    border-radius: 12px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+}
+
+.assessment-header .header-icon i {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+.assessment-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.assessment-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+
+
+@media (max-width: 768px) {
+    .assessment-header {
+        padding: 1.25rem 1.5rem;
+        gap: 1rem;
+    }
+
+    .assessment-header .header-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .assessment-header .header-icon i {
+        font-size: 24px;
+    }
+
+    .assessment-title {
+        font-size: 1.375rem;
+    }
+
+    .assessment-subtitle {
+        font-size: 0.875rem;
+    }
 }

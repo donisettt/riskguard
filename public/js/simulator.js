@@ -233,29 +233,15 @@ function gameOver() {
     saveSimulationResults();
 
     Swal.fire({
-        icon: 'error',
-        title: 'Saldo Habis!',
-        html: `<div class="text-start">
-            <p>Saldo Anda telah habis setelah <strong>${rounds} putaran</strong>.</p>
-            <hr>
-            <p><strong>📊 Analisis Hasil:</strong></p>
-            <ul>
-                <li>Modal awal: <strong>Rp ${initialBalance.toLocaleString('id-ID')}</strong></li>
-                <li>Total taruhan: <strong>Rp ${totalBetAmount.toLocaleString('id-ID')}</strong></li>
-                <li>Saldo akhir: <strong>Rp 0</strong></li>
-                <li>Total loss: <strong class="text-danger">Rp ${initialBalance.toLocaleString('id-ID')}</strong> (100%)</li>
-                <li>Win terbesar: <strong>Rp ${maxWin.toLocaleString('id-ID')}</strong></li>
-            </ul>
-            <hr>
-            <p class="text-danger"><strong>💡 Kesimpulan Edukatif:</strong></p>
-            <p>Meskipun Anda sempat menang beberapa kali, <strong>house edge matematika</strong> 
-            memastikan bandar selalu untung dalam jangka panjang.</p>
-            <p class="small"><em>"The house always wins" - bukan karena curang, tapi karena matematika probabilitas.</em></p>
-        </div>`,
-        confirmButtonText: 'Kembali ke Menu',
-        allowOutsideClick: false,
-        width: '600px'
-    }).then(() => {
+        icon: "warning",
+        title: "Saldo Tidak Cukup!",
+        html: `Saldo Anda: Rp ${balance.toLocaleString(
+          "id-ID"
+        )}<br>Taruhan: Rp ${currentBetAmount.toLocaleString(
+          "id-ID"
+        )}<br><br>Kurangi taruhan atau kembali ke menu.`,
+        confirmButtonText: "OK",
+      }).then(() => {
         window.location.href = '/sigma/simulator';
     });
 }
