@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Sigma</title>
     <link rel="stylesheet" href="/sigma/public/css/register.css">
+    <style>
+        .alert {
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert-danger {
+            background-color: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+
+        .alert-success {
+            background-color: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,8 +43,11 @@
                     <h3>Daftar Akun Baru</h3>
                     <p class="subtitle">Buat akun Anda untuk memulai perjalanan belajar</p>
 
-                    <?php if (!empty($error)): ?>
-                        <div class="alert alert-danger"><?= $error ?></div>
+                    <!-- Alert container - akan diisi via JavaScript atau PHP -->
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-danger" style="display: block;"><?= htmlspecialchars($error) ?></div>
+                    <?php else: ?>
+                        <div class="alert" style="display: none;"></div>
                     <?php endif; ?>
 
                     <form action="" method="POST">
@@ -111,6 +135,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Include Auth JavaScript -->
+    <script src="/sigma/public/js/auth.js"></script>
 </body>
 
 </html>

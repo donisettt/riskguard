@@ -14,13 +14,11 @@ SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku
 ## Fitur Utama
 
 ### 1. Manajemen User
-
 - Registrasi dan autentikasi user
 - Role-based access (Admin dan User)
 - Profil user
 
 ### 2. Assessment Risiko
-
 - Kuesioner assessment dengan 10 pertanyaan
 - Sistem skoring otomatis (0-40 poin)
 - Kategorisasi risiko: Rendah, Sedang, Tinggi, Bahaya
@@ -28,19 +26,16 @@ SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku
 - Grup assessment untuk organisasi data
 
 ### 3. Modul Edukasi
-
 - Manajemen konten edukasi
 - Upload gambar dan video
 - Akses edukasi untuk user
 
 ### 4. Simulator Judi
-
 - Simulasi Random Number Generator (RNG)
 - Tracking history simulasi
 - Statistik win/loss rate
 
 ### 5. Laporan & Analisis
-
 - **Laporan Analisis Risiko:** Ringkasan eksekutif, distribusi kategori, tren risiko
 - **Laporan Assessment Responden:** Data detail per responden
 - Filter berdasarkan tanggal, kategori risiko, dan user
@@ -48,7 +43,6 @@ SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku
 - Export ke Excel menggunakan SheetJS
 
 ### 6. Dashboard
-
 - Statistik real-time
 - Grafik distribusi risiko
 - Total assessment dan user
@@ -56,7 +50,6 @@ SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku
 ## Teknologi yang Digunakan
 
 ### Backend
-
 - PHP 7.4+ (Native, MVC Pattern)
 - MySQL/MariaDB
 - PDO untuk database connection
@@ -64,7 +57,6 @@ SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku
 - DomPDF untuk PDF generation
 
 ### Frontend
-
 - HTML5, CSS3, JavaScript
 - Bootstrap 5.3.0
 - Font Awesome 6.4.0
@@ -72,7 +64,6 @@ SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku
 - SheetJS (xlsx) untuk export Excel
 
 ### Environment
-
 - XAMPP (Apache, MySQL, PHP)
 - Composer
 
@@ -96,7 +87,6 @@ sigma/
 ## Instalasi
 
 ### Prerequisite
-
 - XAMPP atau web server dengan PHP 7.4+
 - MySQL/MariaDB
 - Composer
@@ -104,19 +94,16 @@ sigma/
 ### Langkah Instalasi
 
 1. Clone atau copy project ke folder htdocs
-
 ```bash
 cd C:\xampp\htdocs
 ```
 
 2. Import database
-
 - Buat database baru dengan nama `sigma_db`
 - Import file SQL (jika ada) atau buat tabel sesuai struktur
 
 3. Konfigurasi database
-   Edit file `config/Database.php`:
-
+Edit file `config/Database.php`:
 ```php
 private $host = "localhost";
 private $db_name = "sigma_db";
@@ -125,25 +112,21 @@ private $password = "";
 ```
 
 4. Install dependencies
-
 ```bash
 composer install
 ```
 
 5. Jalankan aplikasi
-
 - Start Apache dan MySQL di XAMPP
 - Akses via browser: `http://localhost/sigma`
 
 ## Default Login
 
 **Admin:**
-
 - Username/Email: admin@sigma.com
 - Password: admin123
 
 **User:**
-
 - Registrasi melalui halaman register
 
 ## Kategori Risiko

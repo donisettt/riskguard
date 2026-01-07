@@ -61,6 +61,14 @@ if (isset($url[0])) {
         exit;
     }
 
+    // Route Auth handleLoginSuccess - untuk set session setelah login via API
+    elseif ($url[0] == 'auth' && isset($url[1]) && $url[1] == 'handleLoginSuccess') {
+        require_once 'app/controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->handleLoginSuccess();
+        exit;
+    }
+
     // Route Dashboard
     elseif ($url[0] == 'dashboard') {
         require_once 'app/controllers/DashboardController.php';

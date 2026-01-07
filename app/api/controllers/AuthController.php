@@ -175,4 +175,69 @@ class AuthController
             return false;
         }
     }
+
+    /**
+     * API Logout
+     * Method: POST
+     * Header: Authorization: Bearer {token}
+     */
+    public function logout()
+    {
+        // Pastikan method POST
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->sendResponse(405, false, 'Method not allowed');
+            return;
+        }
+
+        // Dalam implementasi sederhana, logout hanya menginformasikan client untuk hapus token
+        // Untuk production: hapus token dari database/redis jika disimpan
+
+        $this->sendResponse(200, true, 'Logout berhasil');
+    }
+
+    /**
+     * API Verify Token
+     * Method: GET
+     * Header: Authorization: Bearer {token}
+     */
+    public function verify()
+    {
+        // Pastikan method GET
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            $this->sendResponse(405, false, 'Method not allowed');
+            return;
+        }
+
+        // Ambil token dari header Authorization
+        $headers = getallheaders();
+        $token = null;
+
+        if (isset($headers['Authorization'])) {
+            $authHeader = $headers['Authorization'];
+            if (preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
+                $token = $matches[1];
+            }
+        }
+
+        if (!$token) {
+            $this->sendResponse(401, false, 'Token tidak ditemukan');
+            return;
+        }
+
+        // Verify token
+        $userId = $this->verifyToken($token);
+
+        if ($userId) {
+            // Ambil data user
+            $user = $this->userModel->getById($userId);
+            if ($user) {
+                unset($user['password']);
+                $this->sendResponse(200, true, 'Token valid', ['user' => $user]);
+            } else {
+                $this->sendResponse(404, false, 'User tidak ditemukan');
+            }
+        } else {
+            $this->sendResponse(401, false, 'Token tidak valid atau expired');
+        }
+    }
 }
