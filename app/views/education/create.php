@@ -12,7 +12,10 @@
                 </div>
 
                 <div class="card-body p-4">
-                    <form action="/sigma/index.php?url=education/store" method="POST" enctype="multipart/form-data">
+                    <!-- Alert Container -->
+                    <div id="alert-container"></div>
+
+                    <form data-education-form="create" enctype="multipart/form-data">
 
                         <!-- Judul -->
                         <div class="mb-3">
@@ -71,3 +74,6 @@
     </div>
 
 </div>
+
+<!-- Include Education JavaScript -->
+<script src="/sigma/public/js/education.js"></script>

@@ -1,12 +1,12 @@
 <div class="container-fluid px-4 py-4">
 
+    <!-- Alert Container -->
+    <div id="alert-container"></div>
+
     <!-- HEADER -->
     <div class="d-flex align-items-center gap-3 mb-4">
-        <a href="index.php?url=assessment-groups" class="btn btn-light">
-            <i class="fas fa-arrow-left"></i>
-        </a>
         <div class="d-flex align-items-center gap-3">
-            <div class="icon-shape bg-primary text-white">
+            <div class="icon-shape bg-success text-white">
                 <i class="fas fa-plus-circle"></i>
             </div>
             <h4 class="mb-0 fw-semibold">Tambah Grup Assessment</h4>
@@ -19,7 +19,7 @@
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-4">
 
-                    <form action="index.php?url=assessment-groups/store" method="POST">
+                    <form data-group-form="create">
 
                         <div class="mb-4">
                             <label for="title" class="form-label fw-semibold">
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary px-4">
+                            <button type="submit" class="btn btn-success px-4">
                                 <i class="fas fa-save me-2"></i> Simpan
                             </button>
                             <a href="index.php?url=assessment-groups" class="btn btn-light px-4">
@@ -64,3 +64,5 @@
     </div>
 
 </div>
+
+<script src="/sigma/public/js/assessment-groups.js"></script>

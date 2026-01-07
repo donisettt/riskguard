@@ -1,19 +1,12 @@
 <div class="container-fluid">
+
+    <!-- Alert Container -->
+    <div id="alert-container"></div>
+
     <div class="mb-4">
         <h4 class="fw-bold" style="color: #1e293b;">Pengaturan Akun</h4>
         <p class="text-muted m-0" style="font-size: 0.9rem;">Kelola informasi profil dan keamanan akun Anda</p>
     </div>
-
-    <?php if ($data['success']): ?>
-    <div class="alert-custom alert-success-custom mb-4">
-        <i class="fas fa-check-circle me-2"></i><?= $data['success'] ?>
-    </div>
-    <?php endif; ?>
-    <?php if ($data['error']): ?>
-    <div class="alert-custom alert-danger-custom mb-4">
-        <i class="fas fa-exclamation-circle me-2"></i><?= $data['error'] ?>
-    </div>
-    <?php endif; ?>
 
     <div class="row">
         <div class="col-md-4">
@@ -62,16 +55,16 @@
                     <div class="tab-content" id="pills-tabContent">
 
                         <div class="tab-pane fade show active" id="pills-profile" role="tabpanel">
-                            <form action="index.php?url=profile/update" method="POST">
+                            <form id="form-profile">
                                 <div class="mb-3">
                                     <label class="profile-label">Nama Lengkap</label>
                                     <input type="text" name="name" class="profile-input"
-                                        value="<?= $data['user_data']['name'] ?>" required>
+                                        value="<?= htmlspecialchars($data['user_data']['name']) ?>" required>
                                 </div>
                                 <div class="mb-4">
                                     <label class="profile-label">Alamat Email</label>
                                     <input type="email" name="email" class="profile-input"
-                                        value="<?= $data['user_data']['email'] ?>" required>
+                                        value="<?= htmlspecialchars($data['user_data']['email']) ?>" required>
                                 </div>
                                 <div class="text-end">
                                     <button type="submit" class="btn-primary-custom">
@@ -82,7 +75,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-security" role="tabpanel">
-                            <form action="index.php?url=profile/change_password" method="POST">
+                            <form id="form-password">
                                 <div class="mb-4">
                                     <label class="profile-label">Password Saat Ini</label>
                                     <input type="password" name="old_password" class="profile-input" required>
@@ -114,3 +107,4 @@
 </div>
 
 <link rel="stylesheet" href="/sigma/public/css/profile.css">
+<script src="/sigma/public/js/profile.js"></script>

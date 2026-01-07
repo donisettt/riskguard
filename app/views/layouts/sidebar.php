@@ -99,6 +99,14 @@ $current_url = isset($_GET['url']) ? explode('/', $_GET['url'])[0] : 'dashboard'
                     </a>
                 </div>
             </div>
+
+            <!-- Settings -->
+            <div class="sidebar-section">
+                <a href="index.php?url=settings"
+                    class="list-group-item list-group-item-action <?= $current_url == 'settings' ? 'active' : '' ?>">
+                    <i class="fas fa-cog"></i> Pengaturan
+                </a>
+            </div>
         <?php endif; ?>
 
         <?php if ($_SESSION['role'] === 'user'): ?>

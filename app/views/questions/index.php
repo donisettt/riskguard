@@ -1,5 +1,8 @@
 <div class="container-fluid px-4 py-4">
 
+    <!-- Alert Container -->
+    <div id="alert-container"></div>
+
     <!-- HEADER -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-3">
@@ -19,7 +22,7 @@
         <div class="card-body p-0">
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table id="questions-table" class="table table-hover align-middle mb-0">
                     <thead class="table-light border-bottom">
                         <tr class="text-uppercase small text-muted">
                             <th class="ps-4" width="5%">No</th>
@@ -31,90 +34,21 @@
                     </thead>
 
                     <tbody>
-                        <?php
-                        $no = ($data['currentPage'] - 1) * $data['limit'] + 1;
-                        foreach ($data['questions'] as $row): ?>
-                            <tr>
-                                <td class="ps-4 fw-semibold"><?= $no++ ?></td>
-                                <td><?= htmlspecialchars($row['question']) ?></td>
-                                <td>
-                                    <?php if (!empty($row['group_title'])): ?>
-                                        <span class="badge bg-primary"><?= htmlspecialchars($row['group_title']) ?></span>
-                                    <?php else: ?>
-                                        <span class="text-muted small">Tidak ada grup</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge rounded-pill bg-info text-dark px-3 py-2">
-                                        <?= number_format($row['weight'], 2) ?>
-                                    </span>
-                                </td>
-                                <td class="text-center pe-4">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a href="index.php?url=questions/edit/<?= $row['id'] ?>"
-                                            class="btn btn-sm btn-warning text-white">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="index.php?url=questions/delete/<?= $row['id'] ?>"
-                                            class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Hapus soal ini?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-
-                        <?php if (empty($data['questions'])): ?>
-                            <tr>
-                                <td colspan="5" class="text-center py-5 text-muted">
-                                    <i class="fas fa-folder-open fa-2x mb-2"></i>
-                                    <div>Belum ada soal</div>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <i class="fas fa-spinner fa-spin fa-2x mb-2"></i>
+                                <div>Memuat data...</div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <?php if ($data['totalPages'] > 1): ?>
-                <div class="d-flex justify-content-between align-items-center px-4 py-3 border-top">
-                    <small class="text-muted">
-                        Halaman <?= $data['currentPage'] ?> dari <?= $data['totalPages'] ?>
-                    </small>
-
-                    <nav>
-                        <ul class="pagination mb-0">
-
-                            <li class="page-item <?= $data['currentPage'] <= 1 ? 'disabled' : '' ?>">
-                                <a class="page-link"
-                                    href="index.php?url=questions&page=<?= $data['currentPage'] - 1 ?>">
-                                    &laquo;
-                                </a>
-                            </li>
-
-                            <?php for ($i = 1; $i <= $data['totalPages']; $i++): ?>
-                                <li class="page-item <?= $i == $data['currentPage'] ? 'active' : '' ?>">
-                                    <a class="page-link"
-                                        href="index.php?url=questions&page=<?= $i ?>">
-                                        <?= $i ?>
-                                    </a>
-                                </li>
-                            <?php endfor; ?>
-
-                            <li class="page-item <?= $data['currentPage'] >= $data['totalPages'] ? 'disabled' : '' ?>">
-                                <a class="page-link"
-                                    href="index.php?url=questions&page=<?= $data['currentPage'] + 1 ?>">
-                                    &raquo;
-                                </a>
-                            </li>
-
-                        </ul>
-                    </nav>
-                </div>
-            <?php endif; ?>
+            <div id="pagination-container" class="px-4 py-3 border-top"></div>
 
         </div>
     </div>
 
 </div>
+
+<script src="/sigma/public/js/questions.js"></script>

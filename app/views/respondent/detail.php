@@ -16,40 +16,11 @@
                     Ringkasan Hasil
                 </div>
 
-                <div class="card-body text-center py-4">
-                    <?php if ($data['result_header']): ?>
-
-                        <h1 class="fw-bold display-5 mb-0">
-                            <?= number_format($data['result_header']['total_score'], 2) ?>
-                        </h1>
-                        <small class="text-muted">Total Skor</small>
-
-                        <hr class="my-4">
-
-                        <?php
-                        $risk = $data['result_header']['risk_level'];
-                        $badge = 'secondary';
-                        if ($risk === 'Rendah') $badge = 'success';
-                        if ($risk === 'Sedang') $badge = 'warning';
-                        if ($risk === 'Tinggi') $badge = 'danger';
-                        if ($risk === 'Bahaya') $badge = 'danger';
-                        ?>
-
-                        <div class="mb-3">
-                            <span class="fw-semibold me-2">Status:</span>
-                            <span class="badge rounded-pill bg-<?= $badge ?> px-3 py-2">
-                                <?= $risk ?>
-                            </span>
-                        </div>
-
-                        <small class="text-muted d-block">
-                            Tanggal Tes<br>
-                            <?= date('d M Y, H:i', strtotime($data['result_header']['created_at'])) ?>
-                        </small>
-
-                    <?php else: ?>
-                        <div class="text-muted">Data tidak ditemukan.</div>
-                    <?php endif; ?>
+                <div id="summary-card" class="card-body text-center py-4">
+                    <div class="text-center py-5">
+                        <i class="fas fa-spinner fa-spin fa-2x text-muted mb-3"></i>
+                        <p class="text-muted mb-0">Loading...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,45 +33,31 @@
                 </div>
 
                 <div class="card-body">
-
-                    <?php if (!empty($data['answers'])): ?>
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light border-bottom">
-                                    <tr class="text-uppercase small text-muted">
-                                        <th>Pertanyaan</th>
-                                        <th class="text-center" width="15%">Jawaban</th>
-                                        <th class="text-center" width="15%">Bobot</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($data['answers'] as $ans): ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($ans['question']) ?></td>
-
-                                            <td class="text-center">
-                                                <span class="badge bg-light text-dark border px-3 py-2">
-                                                    <?= $ans['answer_value'] ?>
-                                                </span>
-                                            </td>
-
-                                            <td class="text-center fw-semibold">
-                                                <?= number_format($ans['weight'], 2) ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php else: ?>
-                        <div class="alert alert-warning mb-0">
-                            User ini belum mengisi kuesioner.
-                        </div>
-                    <?php endif; ?>
-
+                    <div class="table-responsive">
+                        <table id="answers-table" class="table table-hover align-middle mb-0">
+                            <thead class="table-light border-bottom">
+                                <tr class="text-uppercase small text-muted">
+                                    <th>Pertanyaan</th>
+                                    <th class="text-center" width="15%">Jawaban</th>
+                                    <th class="text-center" width="15%">Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" class="text-center py-5">
+                                        <i class="fas fa-spinner fa-spin fa-2x text-muted mb-3"></i>
+                                        <p class="text-muted mb-0">Loading...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+<!-- Include Respondent JavaScript -->
+<script src="/sigma/public/js/respondent.js"></script>

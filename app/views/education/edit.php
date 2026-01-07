@@ -12,9 +12,10 @@
                 </div>
 
                 <div class="card-body p-4">
-                    <form action="/sigma/index.php?url=education/update_data/<?= $data['article']['id'] ?>"
-                        method="POST"
-                        enctype="multipart/form-data">
+                    <!-- Alert Container -->
+                    <div id="alert-container"></div>
+
+                    <form data-education-form="edit" data-edit-id="<?= $data['article']['id'] ?>" enctype="multipart/form-data">
 
                         <input type="hidden" name="old_banner" value="<?= $data['article']['banner'] ?>">
 
@@ -80,3 +81,6 @@
     </div>
 
 </div>
+
+<!-- Include Education JavaScript -->
+<script src="/sigma/public/js/education.js"></script>

@@ -40,6 +40,145 @@ if (isset($url[0])) {
             exit;
         }
 
+        // API Education
+        if (isset($url[1]) && $url[1] == 'education') {
+            require_once 'app/api/controllers/EducationController.php';
+            $controller = new EducationController();
+
+            // GET /api/education - List all
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($url[2])) {
+                $controller->index();
+            }
+            // GET /api/education/:id - Get single
+            elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($url[2])) {
+                $controller->show($url[2]);
+            }
+            // POST /api/education - Create
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($url[2])) {
+                $controller->create();
+            }
+            // POST /api/education/:id - Update
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($url[2])) {
+                $controller->update($url[2]);
+            }
+            // DELETE /api/education/:id - Delete
+            elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($url[2])) {
+                $controller->delete($url[2]);
+            } else {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Endpoint not found']);
+            }
+            exit;
+        }
+
+        // API Respondent
+        if (isset($url[1]) && $url[1] == 'respondent') {
+            require_once 'app/api/controllers/RespondentController.php';
+            $controller = new RespondentController();
+
+            // GET /api/respondent - List all
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($url[2])) {
+                $controller->index();
+            }
+            // GET /api/respondent/:id - Get detail
+            elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($url[2])) {
+                $controller->show($url[2]);
+            } else {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Endpoint not found']);
+            }
+            exit;
+        }
+
+        // API Assessment Groups
+        if (isset($url[1]) && $url[1] == 'assessment-groups') {
+            require_once 'app/api/controllers/AssessmentGroupController.php';
+            $controller = new AssessmentGroupController();
+
+            // GET /api/assessment-groups - List with pagination
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($url[2])) {
+                $controller->index();
+            }
+            // GET /api/assessment-groups/:id - Get detail
+            elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($url[2])) {
+                $controller->show($url[2]);
+            }
+            // POST /api/assessment-groups - Create
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($url[2])) {
+                $controller->create();
+            }
+            // POST /api/assessment-groups/:id - Update
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($url[2])) {
+                $controller->update($url[2]);
+            }
+            // DELETE /api/assessment-groups/:id - Delete
+            elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($url[2])) {
+                $controller->delete($url[2]);
+            } else {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Endpoint not found']);
+            }
+            exit;
+        }
+
+        // API Questions
+        if (isset($url[1]) && $url[1] == 'questions') {
+            require_once 'app/api/controllers/QuestionController.php';
+            $controller = new QuestionController();
+
+            // GET /api/questions/groups - Get all groups for dropdown
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($url[2]) && $url[2] == 'groups') {
+                $controller->groups();
+            }
+            // GET /api/questions - List with pagination
+            elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($url[2])) {
+                $controller->index();
+            }
+            // GET /api/questions/:id - Get detail
+            elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($url[2])) {
+                $controller->show($url[2]);
+            }
+            // POST /api/questions - Create
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($url[2])) {
+                $controller->create();
+            }
+            // POST /api/questions/:id - Update
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($url[2])) {
+                $controller->update($url[2]);
+            }
+            // DELETE /api/questions/:id - Delete
+            elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($url[2])) {
+                $controller->delete($url[2]);
+            } else {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Endpoint not found']);
+            }
+            exit;
+        }
+
+        // API Profile
+        if (isset($url[1]) && $url[1] == 'profile') {
+            require_once 'app/api/controllers/ProfileController.php';
+            $controller = new ProfileController();
+
+            // GET /api/profile - Get current user profile
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($url[2])) {
+                $controller->index();
+            }
+            // POST /api/profile/update - Update profile
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($url[2]) && $url[2] == 'update') {
+                $controller->update();
+            }
+            // POST /api/profile/change-password - Change password
+            elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($url[2]) && $url[2] == 'change-password') {
+                $controller->changePassword();
+            } else {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Endpoint not found']);
+            }
+            exit;
+        }
+
         // API endpoint tidak ditemukan
         http_response_code(404);
         echo json_encode(['success' => false, 'message' => 'API endpoint not found']);
@@ -237,6 +376,24 @@ if (isset($url[0])) {
 
         if (method_exists($controller, $method)) {
             $controller->{$method}();
+        } else {
+            $controller->index();
+        }
+        exit;
+    }
+
+    // Routing Module Settings (Admin Only)
+    elseif ($url[0] == 'settings') {
+        require_once 'app/controllers/SettingsController.php';
+        $controller = new SettingsController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+
+        // Map method names
+        if ($method == 'export') {
+            $controller->exportDatabase();
+        } elseif ($method == 'delete') {
+            $controller->deleteAllData();
         } else {
             $controller->index();
         }

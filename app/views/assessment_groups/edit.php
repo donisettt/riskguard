@@ -1,5 +1,8 @@
 <div class="container-fluid px-4 py-4">
 
+    <!-- Alert Container -->
+    <div id="alert-container"></div>
+
     <!-- HEADER -->
     <div class="d-flex align-items-center gap-3 mb-4">
         <a href="index.php?url=assessment-groups" class="btn btn-light">
@@ -19,7 +22,7 @@
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-4">
 
-                    <form action="index.php?url=assessment-groups/update/<?= $data['group']['id'] ?>" method="POST">
+                    <form data-group-form="edit" data-edit-id="<?= $data['group']['id'] ?>">
 
                         <div class="mb-4">
                             <label for="title" class="form-label fw-semibold">
@@ -63,3 +66,5 @@
     </div>
 
 </div>
+
+<script src="/sigma/public/js/assessment-groups.js"></script>
