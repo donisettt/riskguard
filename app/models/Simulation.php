@@ -30,7 +30,7 @@ class Simulation
     }
 
     // Ambil semua history simulasi dengan detail user dan game (untuk admin)
-    public function getAllHistory($limit = null, $offset = 0)
+    public function getAllHistory($limit = null, $offset = 0, $filters = [])
     {
         $query = "SELECT s.*, 
                          u.name, u.email,
@@ -39,13 +39,43 @@ class Simulation
                   FROM " . $this->table . " s
                   LEFT JOIN users u ON s.user_id = u.id
                   LEFT JOIN rng_games g ON s.game_id = g.id
-                  ORDER BY s.created_at DESC";
+                  WHERE 1=1";
+
+        // Apply filters
+        if (!empty($filters['user_id'])) {
+            $query .= " AND s.user_id = :user_id";
+        }
+        if (!empty($filters['game_type'])) {
+            $query .= " AND g.game_type = :game_type";
+        }
+        if (!empty($filters['date_from'])) {
+            $query .= " AND DATE(s.created_at) >= :date_from";
+        }
+        if (!empty($filters['date_to'])) {
+            $query .= " AND DATE(s.created_at) <= :date_to";
+        }
+
+        $query .= " ORDER BY s.created_at DESC";
 
         if ($limit) {
             $query .= " LIMIT :limit OFFSET :offset";
         }
 
         $stmt = $this->conn->prepare($query);
+
+        // Bind filter parameters
+        if (!empty($filters['user_id'])) {
+            $stmt->bindParam(":user_id", $filters['user_id'], PDO::PARAM_INT);
+        }
+        if (!empty($filters['game_type'])) {
+            $stmt->bindParam(":game_type", $filters['game_type']);
+        }
+        if (!empty($filters['date_from'])) {
+            $stmt->bindParam(":date_from", $filters['date_from']);
+        }
+        if (!empty($filters['date_to'])) {
+            $stmt->bindParam(":date_to", $filters['date_to']);
+        }
 
         if ($limit) {
             $stmt->bindParam(":limit", $limit, PDO::PARAM_INT);
@@ -113,12 +143,69 @@ class Simulation
     }
 
     // Ambil total count untuk pagination
-    public function getTotalCount()
+    public function getTotalCount($filters = [])
     {
-        $query = "SELECT COUNT(*) as total FROM " . $this->table;
+        $query = "SELECT COUNT(*) as total FROM " . $this->table . " s
+                  LEFT JOIN rng_games g ON s.game_id = g.id
+                  WHERE 1=1";
+
+        // Apply same filters
+        if (!empty($filters['user_id'])) {
+            $query .= " AND s.user_id = :user_id";
+        }
+        if (!empty($filters['game_type'])) {
+            $query .= " AND g.game_type = :game_type";
+        }
+        if (!empty($filters['date_from'])) {
+            $query .= " AND DATE(s.created_at) >= :date_from";
+        }
+        if (!empty($filters['date_to'])) {
+            $query .= " AND DATE(s.created_at) <= :date_to";
+        }
+
         $stmt = $this->conn->prepare($query);
+
+        // Bind filter parameters
+        if (!empty($filters['user_id'])) {
+            $stmt->bindParam(":user_id", $filters['user_id'], PDO::PARAM_INT);
+        }
+        if (!empty($filters['game_type'])) {
+            $stmt->bindParam(":game_type", $filters['game_type']);
+        }
+        if (!empty($filters['date_from'])) {
+            $stmt->bindParam(":date_from", $filters['date_from']);
+        }
+        if (!empty($filters['date_to'])) {
+            $stmt->bindParam(":date_to", $filters['date_to']);
+        }
+
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
+    }
+
+    // Ambil daftar user yang pernah bermain (untuk filter dropdown)
+    public function getAllUsers()
+    {
+        $query = "SELECT DISTINCT u.id, u.name, u.email 
+                  FROM users u
+                  INNER JOIN " . $this->table . " s ON u.id = s.user_id
+                  ORDER BY u.name ASC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Ambil daftar game type yang ada (untuk filter dropdown)
+    public function getAllGameTypes()
+    {
+        $query = "SELECT DISTINCT g.game_type 
+                  FROM rng_games g
+                  INNER JOIN " . $this->table . " s ON g.id = s.game_id
+                  WHERE g.game_type IS NOT NULL AND g.game_type != ''
+                  ORDER BY g.game_type ASC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 }

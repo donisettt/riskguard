@@ -21,7 +21,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-profile shadow-sm">
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="index.php?url=profile">
                         <i class="fas fa-user-circle me-2"></i>
                         Profil Saya
                     </a>

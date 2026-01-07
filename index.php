@@ -207,6 +207,21 @@ if (isset($url[0])) {
         $controller->index(); // Hanya ada satu halaman utama
         exit;
     }
+
+    // Routing Module Profile
+    elseif ($url[0] == 'profile') {
+        require_once 'app/controllers/ProfileController.php';
+        $controller = new ProfileController();
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+
+        if (method_exists($controller, $method)) {
+            $controller->{$method}();
+        } else {
+            $controller->index();
+        }
+        exit;
+    }
 }
 
 // Default jika url kosong / home

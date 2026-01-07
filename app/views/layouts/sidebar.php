@@ -89,9 +89,13 @@ $current_url = isset($_GET['url']) ? explode('/', $_GET['url'])[0] : 'dashboard'
                         class="list-group-item list-group-item-action ps-4 <?= $current_url == 'simulator' ? 'active' : '' ?>">
                         <i class="fas fa-history"></i> History Simulasi
                     </a>
-                    <a href="index.php?url=report"
-                        class="list-group-item list-group-item-action ps-4 <?= $current_url == 'report' ? 'active' : '' ?>">
+                    <a href="index.php?url=report/analysis"
+                        class="list-group-item list-group-item-action ps-4 <?= ($_GET['url'] ?? '') == 'report/analysis' ? 'active' : '' ?>">
                         <i class="fas fa-chart-line"></i> Laporan Analisis
+                    </a>
+                    <a href="index.php?url=report/assessment"
+                        class="list-group-item list-group-item-action ps-4 <?= ($_GET['url'] ?? '') == 'report/assessment' ? 'active' : '' ?>">
+                        <i class="fas fa-file-alt"></i> Laporan Assessment
                     </a>
                 </div>
             </div>

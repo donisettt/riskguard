@@ -1,0 +1,137 @@
+body {
+  background-color: #f5f6f8;
+}
+
+h2,
+h3,
+h4,
+h5 {
+  letter-spacing: -0.3px;
+}
+
+.page-title {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.card {
+  border-radius: 14px;
+  background-color: #ffffff;
+}
+
+.card-header {
+  border-radius: 14px 14px 0 0;
+}
+
+.stat-card h3 {
+  font-size: 1.75rem;
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.table thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  border-bottom: none;
+}
+
+.table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.badge {
+  font-weight: 500;
+  padding: 0.45em 0.7em;
+  border-radius: 999px;
+}
+
+.progress {
+  background-color: #e5e7eb;
+  border-radius: 999px;
+}
+
+.progress-bar {
+  border-radius: 999px;
+}
+
+.btn-outline-primary {
+  border-radius: 8px;
+}
+
+.pagination .page-link {
+  border-radius: 8px;
+  margin: 0 3px;
+  color: #374151;
+}
+
+.pagination .active .page-link {
+  background-color: #1f2937;
+  border-color: #1f2937;
+}
+
+.stat-card h3 {
+  white-space: nowrap;
+  line-height: 1.1;
+  font-size: 1.65rem;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  padding: 14px 14px;
+  white-space: nowrap;
+}
+
+.table td small {
+  font-size: 0.8rem;
+}
+
+.table thead th {
+  background-color: #f9fafb;
+}
+
+.table tbody tr {
+  border-top: 1px solid #e5e7eb;
+}
+
+.user-cell {
+  max-width: 200px;
+}
+
+.user-cell small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.amount {
+  font-variant-numeric: tabular-nums;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}

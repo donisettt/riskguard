@@ -12,8 +12,17 @@ class AuthMiddleware
 
     public static function isAdmin()
     {
-        if ($_SESSION['role'] !== 'admin') {
-            echo "Akses Ditolak: Halaman ini khusus Admin.";
+        // Cek dulu apakah sudah login
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: /sigma/login");
+            exit;
+        }
+
+        // Cek apakah role admin
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            $_SESSION['message'] = 'Akses ditolak! Halaman ini khusus untuk admin.';
+            $_SESSION['message_type'] = 'danger';
+            header("Location: /sigma/dashboard");
             exit;
         }
     }

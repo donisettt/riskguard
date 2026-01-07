@@ -73,4 +73,54 @@ class User
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Ambil data user lengkap by ID
+    public function getById($id)
+    {
+        $query = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Update Nama & Email
+    public function updateProfile($id, $name, $email)
+    {
+        // Cek email duplikat (kecuali punya sendiri)
+        $check = "SELECT id FROM users WHERE email = :email AND id != :id";
+        $stmtCheck = $this->conn->prepare($check);
+        $stmtCheck->bindParam(":email", $email);
+        $stmtCheck->bindParam(":id", $id);
+        $stmtCheck->execute();
+
+        if ($stmtCheck->rowCount() > 0) {
+            return false; // Email sudah dipakai orang lain
+        }
+
+        $query = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":id", $id);
+        return $stmt->execute();
+    }
+
+    // Ganti Password
+    public function updatePassword($id, $new_password)
+    {
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        $query = "UPDATE users SET password = :password WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":password", $hashed_password);
+        $stmt->bindParam(":id", $id);
+        return $stmt->execute();
+    }
+
+    // Verifikasi Password Lama
+    public function verifyPassword($id, $password)
+    {
+        $user = $this->getById($id);
+        return password_verify($password, $user['password']);
+    }
 }

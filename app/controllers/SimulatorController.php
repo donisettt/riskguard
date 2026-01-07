@@ -127,16 +127,36 @@ class SimulatorController
 
         // Pagination
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $limit = 20;
+        $limit = 10; // Changed to 10 per page
         $offset = ($page - 1) * $limit;
+
+        // Get filters from query parameters
+        $filters = [];
+        if (!empty($_GET['user_id'])) {
+            $filters['user_id'] = $_GET['user_id'];
+        }
+        if (!empty($_GET['game_type'])) {
+            $filters['game_type'] = $_GET['game_type'];
+        }
+        if (!empty($_GET['date_from'])) {
+            $filters['date_from'] = $_GET['date_from'];
+        }
+        if (!empty($_GET['date_to'])) {
+            $filters['date_to'] = $_GET['date_to'];
+        }
 
         // Ambil data
         $data['title'] = 'History Simulasi User';
-        $data['history'] = $model->getAllHistory($limit, $offset);
+        $data['history'] = $model->getAllHistory($limit, $offset, $filters);
         $data['statistics'] = $model->getStatistics();
-        $data['total_records'] = $model->getTotalCount();
+        $data['total_records'] = $model->getTotalCount($filters);
         $data['current_page'] = $page;
         $data['total_pages'] = ceil($data['total_records'] / $limit);
+
+        // Data for filter dropdowns
+        $data['users'] = $model->getAllUsers();
+        $data['game_types'] = $model->getAllGameTypes();
+        $data['filters'] = $filters;
 
         require_once 'app/views/layouts/header.php';
         require_once 'app/views/layouts/sidebar.php';
