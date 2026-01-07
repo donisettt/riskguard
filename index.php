@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// Load Composer Autoloader
+require_once 'vendor/autoload.php';
+
 // Load Config & Core
 require_once 'config/Database.php';
 
@@ -204,7 +207,16 @@ if (isset($url[0])) {
     elseif ($url[0] == 'report') {
         require_once 'app/controllers/ReportController.php';
         $controller = new ReportController();
-        $controller->index(); // Hanya ada satu halaman utama
+
+        $method = isset($url[1]) ? $url[1] : 'index';
+        $param = isset($url[2]) ? $url[2] : null;
+
+        if (method_exists($controller, $method)) {
+            if ($param) $controller->{$method}($param);
+            else $controller->{$method}();
+        } else {
+            $controller->index();
+        }
         exit;
     }
 

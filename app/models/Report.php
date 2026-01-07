@@ -64,15 +64,20 @@ class Report
     }
 
     // 4. Ambil Tabel Detail User sesuai Filter
-    public function getFilteredData($startDate, $endDate, $riskFilter = 'All')
+    public function getFilteredData($startDate, $endDate, $riskFilter = 'All', $userId = null)
     {
-        $sql = "SELECT u.name, u.email, a.total_score, a.risk_level, a.created_at 
+        $sql = "SELECT u.name, u.email, a.total_score, a.risk_level, a.created_at, ag.title as group_title 
                 FROM assessments a 
                 JOIN users u ON a.user_id = u.id 
+                LEFT JOIN assessment_groups ag ON a.group_id = ag.id 
                 WHERE DATE(a.created_at) BETWEEN :start AND :end";
 
         if ($riskFilter != 'All') {
             $sql .= " AND a.risk_level = :risk";
+        }
+
+        if ($userId) {
+            $sql .= " AND a.user_id = :user_id";
         }
 
         $sql .= " ORDER BY a.created_at DESC";
@@ -84,7 +89,24 @@ class Report
             $params['risk'] = $riskFilter;
         }
 
+        if ($userId) {
+            $params['user_id'] = $userId;
+        }
+
         $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // 5. Ambil List Semua User/Responden
+    public function getAllUsers()
+    {
+        $query = "SELECT DISTINCT u.id, u.name 
+                  FROM users u 
+                  INNER JOIN assessments a ON u.id = a.user_id 
+                  WHERE u.role = 'user' 
+                  ORDER BY u.name ASC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

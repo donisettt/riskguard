@@ -143,23 +143,42 @@
     <!-- Header & Filter -->
     <div class="row mb-4 no-print">
         <div class="col-md-12">
-            <h2 class="fw-bold mb-1">Laporan Analisis Risiko Perjudian</h2>
-            <p class="text-muted">Analisis data responden dan faktor risiko kecanduan judi</p>
+            <div class="d-flex align-items-center mb-3">
+                <div class="rounded-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: #009d63;">
+                    <i class="fas fa-chart-line fa-lg text-white"></i>
+                </div>
+                <div class="ms-3">
+                    <h2 class="fw-bold mb-1" style="color: #1e293b;">Laporan Analisis Risiko Perjudian</h2>
+                    <p class="text-muted mb-0">Analisis mendalam faktor risiko dan tren kecanduan judi</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Filter Card -->
-    <div class="card shadow-sm mb-4 no-print">
+    <div class="card shadow-sm mb-4 no-print" style="border-left: 4px solid #009d63;">
         <div class="card-body">
+            <h6 class="fw-semibold mb-3" style="color: #009d63;"><i class="fas fa-filter me-2"></i>Filter Analisis</h6>
             <form method="GET" action="index.php" class="row g-3">
                 <input type="hidden" name="url" value="report/analysis">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="form-label small fw-semibold">Dari Tanggal</label>
                     <input type="date" name="start" class="form-control form-control-sm" value="<?= $data['filter']['start'] ?>">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="form-label small fw-semibold">Sampai Tanggal</label>
                     <input type="date" name="end" class="form-control form-control-sm" value="<?= $data['filter']['end'] ?>">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold">Responden</label>
+                    <select name="user_id" class="form-select form-select-sm">
+                        <option value="">Semua Responden</option>
+                        <?php foreach ($data['users'] as $user): ?>
+                            <option value="<?= $user['id'] ?>" <?= isset($data['filter']['user_id']) && $data['filter']['user_id'] == $user['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($user['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="col-md-2">
                     <label class="form-label small fw-semibold">Kategori Risiko</label>
@@ -174,14 +193,14 @@
                 <div class="col-md-4">
                     <label class="form-label small fw-semibold">&nbsp;</label>
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary btn-sm">
+                        <button type="submit" class="btn btn-sm" style="background-color: #009d63; color: white; border: none;">
                             <i class="fas fa-search"></i> Tampilkan
                         </button>
-                        <button type="button" onclick="window.print()" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-print"></i> Print PDF
-                        </button>
-                        <button type="button" onclick="exportToExcel()" class="btn btn-success btn-sm">
-                            <i class="fas fa-file-excel"></i> Export Excel
+                        <a href="index.php?url=report/analysisPdf&start=<?= $data['filter']['start'] ?>&end=<?= $data['filter']['end'] ?>&risk=<?= $data['filter']['risk'] ?>&user_id=<?= $data['filter']['user_id'] ?? '' ?>" class="btn btn-outline-danger btn-sm" target="_blank">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </a>
+                        <button type="button" onclick="exportToExcel()" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-file-excel"></i> Excel
                         </button>
                     </div>
                 </div>
@@ -192,52 +211,52 @@
     <!-- Summary Cards (Screen Only) -->
     <div class="row mb-4 screen-only">
         <div class="col-md-3">
-            <div class="card risk-card border-0 shadow-sm" style="border-left-color: #0d6efd !important;">
+            <div class="card risk-card border-0 shadow-sm" style="border-left: 4px solid #009d63;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <p class="text-muted small mb-1">Total Responden</p>
                             <h3 class="fw-bold mb-0"><?= $data['summary']['total'] ?></h3>
                         </div>
-                        <div class="text-primary">
-                            <i class="fas fa-users fa-2x"></i>
+                        <div style="background-color: #009d63; width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-users text-white"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card risk-card border-0 shadow-sm" style="border-left-color: #dc3545 !important;">
+            <div class="card risk-card border-0 shadow-sm" style="border-left: 4px solid #dc2626;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <p class="text-muted small mb-1">Kasus Bahaya</p>
                             <h3 class="fw-bold mb-0 text-danger"><?= $data['summary']['critical'] ?></h3>
                         </div>
-                        <div class="text-danger">
-                            <i class="fas fa-exclamation-triangle fa-2x"></i>
+                        <div style="background-color: #dc2626; width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-exclamation-triangle text-white"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card risk-card border-0 shadow-sm" style="border-left-color: #28a745 !important;">
+            <div class="card risk-card border-0 shadow-sm" style="border-left: 4px solid #16a34a;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <p class="text-muted small mb-1">Rata-rata Skor</p>
                             <h3 class="fw-bold mb-0"><?= $data['summary']['avg_score'] ?></h3>
                         </div>
-                        <div class="text-success">
-                            <i class="fas fa-chart-line fa-2x"></i>
+                        <div style="background-color: #16a34a; width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-chart-line text-white"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card risk-card border-0 shadow-sm" style="border-left-color: #ffc107 !important;">
+            <div class="card risk-card border-0 shadow-sm" style="border-left: 4px solid #f59e0b;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -246,8 +265,8 @@
                                 <?= $data['summary']['total'] > 0 ? number_format(($data['summary']['critical'] / $data['summary']['total']) * 100, 1) : 0 ?>%
                             </h3>
                         </div>
-                        <div class="text-warning">
-                            <i class="fas fa-percent fa-2x"></i>
+                        <div style="background-color: #f59e0b; width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-percent text-white"></i>
                         </div>
                     </div>
                 </div>
@@ -259,7 +278,7 @@
     <div class="row mb-4 screen-only">
         <div class="col-md-12">
             <div class="card shadow-sm">
-                <div class="card-header bg-white border-bottom">
+                <div class="card-header" style="background-color: #009d63; color: white;">
                     <h5 class="mb-0 fw-bold">Analisis Faktor Risiko Kecanduan</h5>
                 </div>
                 <div class="card-body">
@@ -668,6 +687,95 @@
 <!-- SheetJS for Excel Export -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <script>
+    function printReport() {
+        // Ambil konten print-only
+        const printContent = document.querySelector('.print-only').innerHTML;
+
+        // Buka window baru
+        const printWindow = window.open('', '_blank', 'width=900,height=650');
+
+        // Tulis konten ke window baru
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title></title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                <style>
+                    * {
+                        -webkit-print-color-adjust: exact !important;
+                        print-color-adjust: exact !important;
+                    }
+                    body {
+                        padding: 20px;
+                        font-family: Arial, sans-serif;
+                        font-size: 11pt;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 20px;
+                    }
+                    th, td {
+                        border: 1px solid #000;
+                        padding: 8px;
+                    }
+                    .table-bordered th,
+                    .table-bordered td {
+                        border: 1px solid #000;
+                    }
+                    .section-title-print {
+                        background: #f0f0f0;
+                        border-left: 4px solid #000;
+                        padding: 10px;
+                        margin: 20px 0 10px 0;
+                        font-weight: bold;
+                        font-size: 12pt;
+                    }
+                    .page-break {
+                        page-break-before: always;
+                    }
+                    @page {
+                        margin: 20mm;
+                        size: A4;
+                    }
+                    @media print {
+                        html, body {
+                            height: 100%;
+                            margin: 0 !important;
+                            padding: 0 !important;
+                        }
+                        @page {
+                            margin: 20mm;
+                        }
+                        .page-break {
+                            page-break-before: always;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                ${printContent}
+                <script>
+                    // Kosongkan title sebelum print
+                    document.title = '';
+                    
+                    window.onload = function() {
+                        // Tunggu sebentar agar render selesai
+                        setTimeout(function() {
+                            window.print();
+                        }, 500);
+                    };
+                <\/script>
+            </body>
+            </html>
+        `);
+
+        printWindow.document.close();
+    }
+
     function exportToExcel() {
         const wb = XLSX.utils.book_new();
 
