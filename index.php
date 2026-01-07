@@ -1,4 +1,9 @@
 <?php
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 // Load Composer Autoloader
@@ -8,8 +13,16 @@ require_once 'vendor/autoload.php';
 require_once 'config/Database.php';
 
 // Simple Router Logic
-$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'login';
+$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '';
 $url = explode('/', $url);
+
+// Jika tidak ada URL atau URL kosong, tampilkan landing page
+if (empty($url[0])) {
+    require_once 'app/controllers/LandingController.php';
+    $controller = new LandingController();
+    $controller->index();
+    exit;
+}
 
 // Controller Default
 $controllerName = 'AuthController';
@@ -17,6 +30,14 @@ $methodName = 'index';
 
 // Routing Logika
 if (isset($url[0])) {
+    // Route untuk landing page
+    if ($url[0] == 'landing' || $url[0] == 'home') {
+        require_once 'app/controllers/LandingController.php';
+        $controller = new LandingController();
+        $controller->index();
+        exit;
+    }
+
     // Route untuk API (semua endpoint API dimulai dengan /api)
     if ($url[0] == 'api') {
         // API Authentication

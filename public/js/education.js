@@ -253,12 +253,27 @@ async function loadArticlesGrid() {
     const grid = document.querySelector('#articles-grid');
     if (!grid) return;
     
-    grid.innerHTML = '<div class="col-12 text-center">Loading...</div>';
+    grid.innerHTML = '<div class="col-12 text-center py-5"><i class="fas fa-spinner fa-spin fa-2x text-muted mb-3"></i><p class="text-muted mb-0">Loading...</p></div>';
     
     const articles = await fetchArticles();
     
     if (articles.length === 0) {
-        grid.innerHTML = '<div class="col-12 text-center">Tidak ada artikel</div>';
+        grid.innerHTML = `
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-book-open fa-4x text-muted" style="opacity: 0.3;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2" style="color: var(--text-dark);">Tidak ada artikel</h4>
+                        <p class="text-muted mb-0">
+                            Belum ada konten edukasi yang tersedia saat ini.<br>
+                            Silakan kembali lagi nanti untuk membaca artikel terbaru.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
         return;
     }
     

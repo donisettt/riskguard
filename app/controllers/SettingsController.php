@@ -140,8 +140,6 @@ class SettingsController
         }
 
         try {
-            $this->db->beginTransaction();
-
             // Get all tables
             $stmt = $this->db->query("SHOW TABLES");
             $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -150,6 +148,8 @@ class SettingsController
             $this->db->exec("SET FOREIGN_KEY_CHECKS = 0");
 
             // Delete data from all tables except users (keep admin account)
+            // Note: Using TRUNCATE instead of DELETE because TRUNCATE is faster
+            // and auto-commits, so we don't use transactions here
             $excludeTables = ['users'];
 
             foreach ($tables as $table) {
@@ -164,13 +164,17 @@ class SettingsController
             // Re-enable foreign key checks
             $this->db->exec("SET FOREIGN_KEY_CHECKS = 1");
 
-            $this->db->commit();
-
             $_SESSION['success'] = 'Semua data berhasil dihapus. Akun admin tetap tersimpan.';
             header('Location: index.php?url=settings');
             exit;
         } catch (Exception $e) {
-            $this->db->rollBack();
+            // Re-enable foreign key checks in case of error
+            try {
+                $this->db->exec("SET FOREIGN_KEY_CHECKS = 1");
+            } catch (Exception $ex) {
+                // Ignore if this fails
+            }
+
             $_SESSION['error'] = 'Gagal menghapus data: ' . $e->getMessage();
             header('Location: index.php?url=settings');
             exit;
