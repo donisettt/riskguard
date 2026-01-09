@@ -191,6 +191,57 @@ async function deleteArticle(id) {
 window.deleteArticle = deleteArticle;
 
 /**
+ * View article modal
+ */
+async function viewArticle(id) {
+    const article = await fetchArticle(id);
+    if (!article) return;
+    
+    // Create modal if not exists
+    let modal = document.querySelector('#articleModal');
+    if (!modal) {
+        const modalHtml = `
+            <div class="modal fade" id="articleModal" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #009d63; color: white;">
+                            <h5 class="modal-title fw-bold" id="articleModalLabel"></h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img id="articleModalBanner" class="img-fluid mb-3 rounded" style="width: 100%; max-height: 400px; object-fit: cover;">
+                            <div id="articleModalContent"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <small class="text-muted me-auto" id="articleModalDate"></small>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        modal = document.querySelector('#articleModal');
+    }
+    
+    // Set content
+    document.querySelector('#articleModalLabel').textContent = article.title;
+    document.querySelector('#articleModalBanner').src = '/sigma/public/uploads/' + article.banner;
+    document.querySelector('#articleModalContent').innerHTML = article.content;
+    document.querySelector('#articleModalDate').innerHTML = `
+        <i class="far fa-calendar me-1"></i>
+        ${new Date(article.created_at).toLocaleDateString('id-ID')}
+    `;
+    
+    // Show modal
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+}
+
+// Expose viewArticle to global scope
+window.viewArticle = viewArticle;
+
+/**
  * Handle form submission (create/edit)
  */
 function handleFormSubmit(event) {
@@ -281,16 +332,44 @@ async function loadArticlesGrid() {
     articles.forEach(article => {
         const col = document.createElement('div');
         col.className = 'col-md-4 mb-4';
+        
+        // Strip HTML and get excerpt
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = article.content;
+        const excerpt = (tempDiv.textContent || tempDiv.innerText || '').substring(0, 150);
+        
         col.innerHTML = `
-            <div class="card h-100">
-                <img src="/sigma/public/uploads/${article.banner}" class="card-img-top" alt="${escapeHtml(article.title)}">
-                <div class="card-body">
-                    <h5 class="card-title">${escapeHtml(article.title)}</h5>
-                    <p class="card-text">${escapeHtml(article.content.substring(0, 100))}...</p>
-                    <small class="text-muted">${new Date(article.created_at).toLocaleDateString('id-ID')}</small>
+            <div class="card h-100 shadow-sm border-0" style="transition: transform 0.3s;">
+                <img src="/sigma/public/uploads/${article.banner}" 
+                     class="card-img-top" 
+                     alt="${escapeHtml(article.title)}"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold" style="color: #009d63;">${escapeHtml(article.title)}</h5>
+                    <p class="card-text text-muted flex-grow-1">${escapeHtml(excerpt)}...</p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            <i class="far fa-calendar me-1"></i>
+                            ${new Date(article.created_at).toLocaleDateString('id-ID')}
+                        </small>
+                        <button onclick="viewArticle(${article.id})" 
+                                class="btn btn-sm btn-success" 
+                                style="background-color: #009d63; border: none;">
+                            <i class="fas fa-book-reader me-1"></i> Baca
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
+        
+        // Add hover effect
+        col.querySelector('.card').addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        col.querySelector('.card').addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+        
         grid.appendChild(col);
     });
 }

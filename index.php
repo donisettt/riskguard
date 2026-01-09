@@ -38,6 +38,14 @@ if (isset($url[0])) {
         exit;
     }
 
+    // Route untuk detail education di landing page (public access)
+    if ($url[0] == 'education' && isset($url[1]) && is_numeric($url[1]) && !isset($url[2])) {
+        require_once 'app/controllers/LandingController.php';
+        $controller = new LandingController();
+        $controller->showEducation($url[1]);
+        exit;
+    }
+
     // Route untuk API (semua endpoint API dimulai dengan /api)
     if ($url[0] == 'api') {
         // API Authentication

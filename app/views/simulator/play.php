@@ -1,126 +1,129 @@
-<div class="container-fluid py-4">
-    <!-- Header with Back Button -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <a href="/sigma/simulator" class="btn btn-outline-secondary mb-3">
-                <i class="fas fa-arrow-left"></i> Kembali ke Pilihan Game
-            </a>
-            <div class="text-center">
-                <h2 class="fw-bold text-primary mb-2">
-                    <span style="font-size: 2.5rem;"><?php
+<div class="container-fluid p-0" style="height: 100vh; overflow: hidden;">
+    <!-- Top Bar -->
+    <div class="top-bar bg-white border-bottom shadow-sm py-2 px-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <a href="/sigma/simulator" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <span style="font-size: 1.8rem;"><?php
                                                         $symbols = json_decode($data['game']['symbols'], true);
                                                         echo $symbols[0] ?? '🎮';
                                                         ?></span>
-                    <?= htmlspecialchars($data['game']['name']) ?>
-                </h2>
-                <span class="badge bg-info text-dark fs-6 mb-3"><?= strtoupper(htmlspecialchars($data['game']['game_type'])) ?></span>
+                    <div>
+                        <h5 class="mb-0 fw-bold" style="color: #009d63;"><?= htmlspecialchars($data['game']['name']) ?></h5>
+                        <small class="text-muted">RTP: <?= $data['game']['rtp'] ?>% | Min: Rp <?= number_format($data['game']['bet_cost'], 0, ',', '.') ?></small>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Game Info Alert -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="alert alert-info border-0 shadow-sm">
-                <h5 class="fw-bold mb-2">
-                    <i class="fas fa-info-circle"></i> Tentang Game Ini
-                </h5>
-                <p class="mb-2"><?= htmlspecialchars($data['game']['description']) ?></p>
-                <div class="d-flex gap-4 mt-3 flex-wrap">
-                    <small><strong>RTP:</strong> <?= $data['game']['rtp'] ?>%</small>
-                    <small><strong>Min Taruhan:</strong> <span class="badge bg-warning text-dark">Rp <?= number_format($data['game']['bet_cost'], 0, ',', '.') ?></span></small>
-                    <small><strong>Max Win:</strong> Rp <?= number_format($data['game']['max_payout'], 0, ',', '.') ?></small>
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-end">
+                    <small class="text-muted d-block">Saldo Virtual</small>
+                    <h4 class="mb-0 fw-bold" style="color: #009d63;">Rp <span id="balance"><?= number_format($data['user_balance'], 0, ',', '.') ?></span></h4>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Game Area -->
-    <div class="row justify-content-center">
-        <div class="col-md-7">
-            <div class="card border-0 shadow-lg game-machine">
-                <div class="card-body text-center p-4">
-
-                    <!-- Balance Display -->
-                    <div class="mb-3 balance-display">
-                        <h5 class="text-muted mb-2">Saldo Virtual Anda</h5>
-                        <h1 class="fw-bold text-warning balance-amount">Rp <span id="balance"><?= number_format($data['user_balance'], 0, ',', '.') ?></span></h1>
-                    </div>
-
-                    <!-- Game Container - Will be dynamically rendered based on game type -->
-                    <div id="game-container" class="mb-4">
-                        <!-- Dynamically loaded by JavaScript -->
-                    </div>
+    <!-- Main Content Area -->
+    <div class="row g-0" style="height: calc(100vh - 70px);">
+        <!-- Game Area - 60% -->
+        <div class="col-lg-7 p-3" style="height: 100%; overflow-y: auto;">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-3">
+                    <!-- Game Container -->
+                    <div id="game-container" class="mb-2"></div>
 
                     <!-- Control Buttons -->
-                    <div class="d-grid gap-2" id="control-buttons">
-                        <!-- Dynamically loaded by JavaScript -->
-                    </div>
+                    <div class="d-grid gap-2" id="control-buttons"></div>
 
                     <!-- Status Message -->
-                    <div id="status-msg" class="mt-3 fw-bold fs-5" style="min-height: 40px;"></div>
+                    <div id="status-msg" class="mt-2 text-center fw-bold" style="min-height: 25px;"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Statistics Sidebar -->
-        <div class="col-md-4">
-            <div class="card shadow-sm h-100 border-0">
-                <div class="card-header bg-primary text-white fw-bold">
-                    <i class="fas fa-chart-bar"></i> Statistik Sesi Ini
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Total Putaran:</span>
-                            <span class="badge bg-primary rounded-pill fs-6" id="total-rounds">0</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Total Taruhan:</span>
-                            <strong class="text-warning" id="total-bet-amount">Rp 0</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Modal Awal:</span>
-                            <strong class="text-primary">Rp <?= number_format($data['user_balance'], 0, ',', '.') ?></strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Sisa Saldo:</span>
-                            <strong class="text-info" id="current-balance">Rp <?= number_format($data['user_balance'], 0, ',', '.') ?></strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Total Kerugian:</span>
-                            <strong class="text-danger" id="total-loss">Rp 0</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Kemenangan Terbesar:</span>
-                            <strong class="text-success" id="max-win">Rp 0</strong>
-                        </li>
-                    </ul>
-
-                    <!-- Progress Bar -->
-                    <div class="mb-3">
-                        <small class="text-muted">Saldo Tersisa:</small>
-                        <div class="progress" style="height: 25px;">
-                            <div id="balance-progress" class="progress-bar bg-success" role="progressbar"
-                                style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                100%
+        <!-- Statistics Sidebar - 40% -->
+        <div class="col-lg-5 bg-light border-start" style="height: 100%; overflow-y: auto;">
+            <div class="p-3">
+                <!-- Stats Cards -->
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-2 text-center">
+                                <small class="text-muted d-block">Putaran</small>
+                                <h4 class="mb-0 fw-bold" style="color: #009d63;" id="total-rounds">0</h4>
                             </div>
                         </div>
                     </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-2 text-center">
+                                <small class="text-muted d-block">Taruhan</small>
+                                <h6 class="mb-0 fw-bold text-warning" id="total-bet-amount">Rp 0</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-2 text-center">
+                                <small class="text-muted d-block">Modal</small>
+                                <h6 class="mb-0 fw-bold" style="color: #3b82f6;">Rp <?= number_format($data['user_balance'], 0, ',', '.') ?></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-2 text-center">
+                                <small class="text-muted d-block">Sisa</small>
+                                <h6 class="mb-0 fw-bold" style="color: #06b6d4;" id="current-balance">Rp <?= number_format($data['user_balance'], 0, ',', '.') ?></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-2 text-center">
+                                <small class="text-muted d-block">Rugi</small>
+                                <h6 class="mb-0 fw-bold text-danger" id="total-loss">Rp 0</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-2 text-center">
+                                <small class="text-muted d-block">Max Win</small>
+                                <h6 class="mb-0 fw-bold text-success" id="max-win">Rp 0</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Educational Alert -->
-                    <div class="alert alert-warning border-0 small mb-3">
+                <!-- Progress Bar -->
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body p-2">
+                        <small class="text-muted d-block mb-1">Saldo Tersisa</small>
+                        <div class="progress" style="height: 20px;">
+                            <div id="balance-progress" class="progress-bar" style="width: 100%; background-color: #009d63;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                <small class="fw-bold">100%</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational Alerts -->
+                <div class="alert alert-warning border-0 shadow-sm mb-2 py-2 px-3">
+                    <small>
                         <i class="fas fa-lightbulb"></i>
-                        <strong>Perhatikan:</strong> Meskipun kadang menang, saldo akan terus turun dalam jangka panjang.
-                        Inilah bukti <strong>House Edge</strong> bekerja!
-                    </div>
+                        <strong>Perhatikan:</strong> Meskipun kadang menang, saldo akan terus turun dalam jangka panjang. Inilah bukti <strong>House Edge</strong> bekerja!
+                    </small>
+                </div>
 
-                    <div class="alert alert-danger border-0 small mb-0">
+                <div class="alert alert-danger border-0 shadow-sm mb-0 py-2 px-3">
+                    <small>
                         <i class="fas fa-exclamation-triangle"></i>
-                        <strong>Fakta RTP:</strong> RTP <?= $data['game']['rtp'] ?>% artinya dari setiap Rp 100.000 yang Anda taruhkan,
-                        rata-rata hanya Rp <?= number_format($data['game']['rtp'] * 1000, 0, ',', '.') ?> yang kembali.
-                        <strong>House edge <?= 100 - $data['game']['rtp'] ?>%</strong> adalah keuntungan bandar yang pasti!
-                    </div>
+                        <strong>Fakta RTP:</strong> RTP <?= $data['game']['rtp'] ?>% artinya dari setiap Rp 100.000 yang Anda taruhkan, rata-rata hanya Rp <?= number_format($data['game']['rtp'] * 1000, 0, ',', '.') ?> yang kembali. <strong>House edge <?= 100 - $data['game']['rtp'] ?>%</strong> adalah keuntungan bandar yang pasti!
+                    </small>
                 </div>
             </div>
         </div>

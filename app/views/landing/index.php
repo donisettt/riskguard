@@ -225,35 +225,42 @@
                 <?php if (!empty($featuredEducations)): ?>
                     <?php foreach ($featuredEducations as $education): ?>
                         <div class="col-lg-4 col-md-6">
-                            <div class="education-card">
-                                <div class="education-image">
-                                    <?php if (!empty($education['banner'])): ?>
-                                        <img src="<?= htmlspecialchars($education['banner']) ?>" alt="<?= htmlspecialchars($education['title']) ?>">
-                                    <?php else: ?>
-                                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop" alt="Education">
-                                    <?php endif; ?>
-                                    <div class="education-overlay">
-                                        <span class="badge bg-primary">
-                                            <i class="fas fa-book me-1"></i>
-                                            Materi Edukasi
-                                        </span>
+                            <a href="/sigma/index.php?url=education/<?= $education['id'] ?>" class="text-decoration-none">
+                                <div class="education-card">
+                                    <div class="education-image">
+                                        <?php if (!empty($education['banner'])): ?>
+                                            <img src="<?= htmlspecialchars($education['banner']) ?>" alt="<?= htmlspecialchars($education['title']) ?>">
+                                        <?php else: ?>
+                                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop" alt="Education">
+                                        <?php endif; ?>
+                                        <div class="education-overlay">
+                                            <span class="badge bg-primary">
+                                                <i class="fas fa-book me-1"></i>
+                                                Materi Edukasi
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="education-content">
+                                        <h3 class="education-title">
+                                            <?= htmlspecialchars($education['title']) ?>
+                                        </h3>
+                                        <p class="education-excerpt">
+                                            <?= htmlspecialchars(substr(strip_tags($education['content']), 0, 120)) ?>...
+                                        </p>
+                                        <div class="education-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-clock"></i>
+                                                <?= date('d M Y', strtotime($education['created_at'])) ?>
+                                            </span>
+                                        </div>
+                                        <div class="mt-3">
+                                            <span class="text-primary fw-semibold">
+                                                Baca Selengkapnya <i class="fas fa-arrow-right ms-1"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="education-content">
-                                    <h3 class="education-title">
-                                        <?= htmlspecialchars($education['title']) ?>
-                                    </h3>
-                                    <p class="education-excerpt">
-                                        <?= htmlspecialchars(substr(strip_tags($education['content']), 0, 120)) ?>...
-                                    </p>
-                                    <div class="education-meta">
-                                        <span class="meta-item">
-                                            <i class="fas fa-clock"></i>
-                                            <?= date('d M Y', strtotime($education['created_at'])) ?>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>

@@ -47,4 +47,26 @@ class LandingController
         // Load view
         require_once 'app/views/landing/index.php';
     }
+
+    // Method untuk menampilkan detail materi edukasi (public access)
+    public function showEducation($id)
+    {
+        try {
+            // Ambil data materi edukasi berdasarkan ID
+            $education = $this->educationModel->getById($id);
+
+            if (!$education) {
+                // Jika tidak ditemukan, redirect ke landing page
+                header('Location: /sigma/');
+                exit;
+            }
+
+            // Load view detail edukasi
+            require_once 'app/views/landing/education_detail.php';
+        } catch (Exception $e) {
+            error_log("Error showing education: " . $e->getMessage());
+            header('Location: /sigma/');
+            exit;
+        }
+    }
 }
