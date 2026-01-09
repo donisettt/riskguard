@@ -7,10 +7,13 @@
             </a>
             <div class="text-center">
                 <h2 class="fw-bold text-primary mb-2">
-                    <span style="font-size: 2.5rem;"><?= explode(',', $data['game']['symbols'])[0] ?></span>
+                    <span style="font-size: 2.5rem;"><?php
+                                                        $symbols = json_decode($data['game']['symbols'], true);
+                                                        echo $symbols[0] ?? '🎮';
+                                                        ?></span>
                     <?= htmlspecialchars($data['game']['name']) ?>
                 </h2>
-                <span class="badge bg-info text-dark fs-6 mb-3"><?= htmlspecialchars($data['game']['game_type']) ?></span>
+                <span class="badge bg-info text-dark fs-6 mb-3"><?= strtoupper(htmlspecialchars($data['game']['game_type'])) ?></span>
             </div>
         </div>
     </div>

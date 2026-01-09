@@ -12,19 +12,23 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="">
-                <i class="fas fa-brain"></i>
-                <span>SIGMA</span>
+            <a class="navbar-brand" href="#">
+                <div class="brand-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <span class="brand-text">SIGMA</span>
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Beranda</a>
+                        <a class="nav-link active" href="#home">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#features">Fitur</a>
@@ -35,8 +39,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#assessments">Assessment</a>
                     </li>
-                    <li class="nav-item ms-2">
-                        <a href="auth/register" class="btn btn-primary">Daftar</a>
+                    <li class="nav-item ms-lg-3">
+                        <a href="auth/register" class="btn btn-cta">Daftar Sekarang</a>
                     </li>
                 </ul>
             </div>
@@ -47,7 +51,7 @@
     <section id="home" class="hero-section">
         <div class="hero-background"></div>
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center g-5">
                 <div class="col-lg-6">
                     <div class="hero-content">
                         <div class="hero-badge">
@@ -55,13 +59,12 @@
                             <span>Sistem Monitoring Risiko Terpercaya</span>
                         </div>
                         <h1 class="hero-title">
-                            Analisis Risiko Kecanduan Judi Online
+                            Analisis Risiko Kecanduan Judi Online dengan
                             <span class="text-primary">SIGMA</span>
                         </h1>
                         <p class="hero-description">
                             Sistem berbasis web untuk menganalisis dan memantau risiko perilaku kecanduan judi online.
-                            Lakukan assessment risiko, akses materi edukasi pencegahan,
-                            dan dapatkan laporan analisis yang komprehensif.
+                            Lakukan assessment risiko, akses materi edukasi pencegahan, dan dapatkan laporan analisis yang komprehensif.
                         </p>
                         <div class="hero-actions">
                             <a href="auth/register" class="btn btn-primary btn-lg">
@@ -69,18 +72,18 @@
                                 Mulai Sekarang
                             </a>
                             <a href="#features" class="btn btn-outline-secondary btn-lg">
-                                <i class="fas fa-play-circle me-2"></i>
+                                <i class="fas fa-arrow-down me-2"></i>
                                 Pelajari Lebih Lanjut
                             </a>
                         </div>
                         <div class="hero-stats">
                             <div class="stat-item">
                                 <div class="stat-number"><?= $totalEducations ?>+</div>
-                                <div class="stat-label">Materi Pencegahan</div>
+                                <div class="stat-label">Materi Edukasi</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-number"><?= $totalAssessments ?>+</div>
-                                <div class="stat-label">Assessment Risiko</div>
+                                <div class="stat-label">Assessment</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-number">100%</div>
@@ -401,7 +404,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-4">
-                    <h5 class="footer-title">Hubungi Kami</h5>
+                    <h5 class="footer-title">Developer</h5>
                     <ul class="footer-links">
                         <li>
                             <i class="fas fa-envelope me-2"></i>
@@ -437,6 +440,11 @@
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Kembali ke atas">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Smooth scrolling
@@ -445,22 +453,80 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Close mobile menu if open
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                            toggle: false
+                        });
+                        bsCollapse.hide();
+                    }
+
+                    // Smooth scroll to target
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = target.offsetTop - navbarHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
         });
 
         // Navbar background on scroll
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+
         window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+
+            lastScrollTop = scrollTop;
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>

@@ -15,10 +15,10 @@
     <div class="row mb-4">
         <?php
         $stats = [
-            ['label' => 'Total User', 'value' => number_format($data['statistics']['total_users']), 'icon' => 'fa-users', 'color' => 'primary'],
-            ['label' => 'Total Sesi', 'value' => number_format($data['statistics']['total_sessions']), 'icon' => 'fa-gamepad', 'color' => 'info'],
-            ['label' => 'Total Putaran', 'value' => number_format($data['statistics']['total_rounds']), 'icon' => 'fa-sync-alt', 'color' => 'warning'],
-            ['label' => 'Total Loss', 'value' => 'Rp ' . number_format($data['statistics']['total_loss']), 'icon' => 'fa-chart-line', 'color' => 'danger'],
+            ['label' => 'Total User', 'value' => number_format($data['statistics']['total_users'] ?? 0), 'icon' => 'fa-users', 'color' => 'primary'],
+            ['label' => 'Total Sesi', 'value' => number_format($data['statistics']['total_sessions'] ?? 0), 'icon' => 'fa-gamepad', 'color' => 'info'],
+            ['label' => 'Total Putaran', 'value' => number_format($data['statistics']['total_rounds'] ?? 0), 'icon' => 'fa-sync-alt', 'color' => 'warning'],
+            ['label' => 'Total Loss', 'value' => 'Rp ' . number_format($data['statistics']['total_loss'] ?? 0), 'icon' => 'fa-chart-line', 'color' => 'danger'],
         ];
         ?>
 
@@ -50,9 +50,17 @@
                 </div>
                 <div class="card-body">
                     <?php
-                    $total_sessions = $data['statistics']['total_sessions'];
-                    $win_pct = $total_sessions > 0 ? ($data['statistics']['win_sessions'] / $total_sessions * 100) : 0;
-                    $loss_pct = 100 - $win_pct;
+                    $total_sessions = $data['statistics']['total_sessions'] ?? 0;
+                    $win_sessions = $data['statistics']['win_sessions'] ?? 0;
+
+                    if ($total_sessions > 0) {
+                        $win_pct = ($win_sessions / $total_sessions * 100);
+                        $loss_pct = 100 - $win_pct;
+                    } else {
+                        // Jika tidak ada data, set keduanya 0
+                        $win_pct = 0;
+                        $loss_pct = 0;
+                    }
                     ?>
 
                     <div class="mb-4">
@@ -88,7 +96,7 @@
                         <div class="col-6">
                             <p class="text-muted small mb-1">Avg Loss</p>
                             <h4 class="fw-bold text-danger">
-                                Rp <?= number_format($data['statistics']['avg_loss_per_session']) ?>
+                                Rp <?= number_format($data['statistics']['avg_loss_per_session'] ?? 0) ?>
                             </h4>
                         </div>
                         <div class="col-6">
@@ -101,7 +109,9 @@
 
                     <div class="alert alert-light border mt-4 mb-0 small">
                         <i class="fas fa-info-circle me-1"></i>
-                        <?php if ($win_pct < 20): ?>
+                        <?php if ($total_sessions == 0): ?>
+                            Belum ada data simulasi yang tercatat.
+                        <?php elseif ($win_pct < 20): ?>
                             Hanya <strong><?= number_format($win_pct, 1) ?>%</strong> sesi profit — sistem sangat konsisten.
                         <?php else: ?>
                             <strong><?= number_format($loss_pct, 1) ?>%</strong> sesi berakhir loss — house edge bekerja stabil.
@@ -222,15 +232,15 @@
                                             <td class="text-center">
                                                 <span class="badge bg-info"><?= $row['total_round'] ?>x</span>
                                             </td>
-                                            <td class="text-end">Rp <?= number_format($row['initial_balance']) ?></td>
+                                            <td class="text-end">Rp <?= number_format($row['initial_balance'] ?? 0) ?></td>
                                             <td class="text-end">
                                                 <strong class="<?= $is_win ? 'text-success' : 'text-danger' ?>">
-                                                    Rp <?= number_format($row['final_balance']) ?>
+                                                    Rp <?= number_format($row['final_balance'] ?? 0) ?>
                                                 </strong>
                                             </td>
                                             <td class="text-end amount">
                                                 <strong class="<?= $is_win ? 'text-success' : 'text-danger' ?>">
-                                                    <?= $is_win ? '+Rp ' : 'Rp ' ?><?= number_format(abs($profit_loss)) ?>
+                                                    <?= $is_win ? '+Rp ' : 'Rp ' ?><?= number_format(abs($profit_loss ?? 0)) ?>
                                                 </strong>
                                                 <br>
                                                 <small class="<?= $is_win ? 'text-success' : 'text-danger' ?>">

@@ -55,7 +55,15 @@ function initGameData(data) {
     maxBet = 100000;
     rtp = parseFloat(gameData.rtp);
     maxPayout = parseInt(gameData.max_payout);
-    symbols = gameData.symbols.split(',').map(s => s.trim());
+    
+    // Parse symbols as JSON array instead of comma-separated string
+    try {
+        symbols = JSON.parse(gameData.symbols);
+    } catch (e) {
+        // Fallback: if not JSON, try split by comma
+        symbols = gameData.symbols.split(',').map(s => s.trim());
+    }
+    
     gameType = gameData.game_type;
 
     console.log('Game initialized:', {
@@ -63,7 +71,8 @@ function initGameData(data) {
         userStartBalance,
         balance,
         minBetPerGame,
-        currentBetAmount
+        currentBetAmount,
+        symbols
     });
 }
 
@@ -78,21 +87,29 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeGame() {
-    switch (gameType) {
-        case 'Slot':
+    const type = gameType.toLowerCase();
+    console.log('Initializing game type:', type);
+    
+    switch (type) {
+        case 'slot':
             initSlotGame();
             break;
-        case 'Crash':
+        case 'crash':
             initCrashGame();
             break;
-        case 'Wheel':
+        case 'wheel':
             initWheelGame();
             break;
-        case 'Card':
-        case 'Dice':
+        case 'live':
+            initWheelGame(); // Live games menggunakan wheel mechanic
+            break;
+        case 'original':
+        case 'card':
+        case 'dice':
             initCardGame();
             break;
         default:
+            console.warn('Unknown game type:', gameType, '- defaulting to slot');
             initSlotGame();
     }
 }
@@ -135,14 +152,38 @@ function getBetControlPanelHTML() {
 }
 
 function updateBetDisplay() {
-    document.getElementById('current-bet-display').textContent = currentBetAmount.toLocaleString('id-ID');
-    const allBtns = document.querySelectorAll('.btn-spin, .btn-bet, .btn-play');
-    allBtns.forEach(btn => {
-        const match = btn.innerHTML.match(/(SPIN|TERBANG|PUTAR RODA|MAIN)/);
-        if (match) {
-            btn.innerHTML = btn.innerHTML.replace(/Rp [\d.,]+/, `Rp ${currentBetAmount.toLocaleString('id-ID')}`);
-        }
-    });
+    const currentBetDisplayEl = document.getElementById('current-bet-display');
+    if (currentBetDisplayEl) {
+        currentBetDisplayEl.textContent = currentBetAmount.toLocaleString('id-ID');
+    }
+    
+    // Update potential win for crash games
+    const potentialWinEl = document.getElementById('potential-win');
+    if (potentialWinEl) {
+        potentialWinEl.textContent = 'Rp ' + currentBetAmount.toLocaleString('id-ID');
+    }
+    
+    // Update button text based on game type
+    const btnSpin = document.getElementById('btn-spin');
+    const btnBet = document.getElementById('btn-bet');
+    const btnPlay = document.getElementById('btn-play');
+    
+    if (btnSpin) {
+        // For slot and wheel games
+        const icon = gameType === 'wheel' ? '<i class="fas fa-sync-alt"></i>' : '<i class="fas fa-bolt"></i>';
+        const text = gameType === 'wheel' ? 'PUTAR RODA' : 'SPIN';
+        btnSpin.innerHTML = `${icon} ${text} (Rp ${currentBetAmount.toLocaleString('id-ID')})`;
+    }
+    
+    if (btnBet) {
+        // For crash games - keep as is, already using MULAI TERBANG
+        // No need to update as it's set in initCrashGame()
+    }
+    
+    if (btnPlay) {
+        // For card/original games
+        btnPlay.innerHTML = `<i class="fas fa-play"></i> MAIN (Rp ${currentBetAmount.toLocaleString('id-ID')})`;
+    }
 }
 
 function setBetAmount(amount) {

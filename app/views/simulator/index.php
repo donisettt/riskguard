@@ -60,10 +60,13 @@
                     <div class="game-card">
                         <div class="game-card-header">
                             <div class="game-icon">
-                                <?= explode(',', $game['symbols'])[0] ?>
+                                <?php
+                                $symbols = json_decode($game['symbols'], true);
+                                echo $symbols[0] ?? '🎮';
+                                ?>
                             </div>
                             <span class="game-type-badge">
-                                <?= htmlspecialchars($game['game_type']) ?>
+                                <?= strtoupper(htmlspecialchars($game['game_type'])) ?>
                             </span>
                         </div>
 
