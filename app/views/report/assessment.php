@@ -1,83 +1,3 @@
-<style>
-    @media print {
-        * {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }
-
-        body {
-            background: white !important;
-            color: #000 !important;
-            font-size: 11pt !important;
-            margin: 0;
-            padding: 15mm !important;
-        }
-
-        .container-fluid {
-            padding: 0 !important;
-            margin: 0 !important;
-            max-width: 100% !important;
-        }
-
-        .no-print,
-        .sidebar,
-        .navbar,
-        nav,
-        header,
-        .btn,
-        button {
-            display: none !important;
-        }
-
-        .screen-only {
-            display: none !important;
-        }
-
-        .print-only {
-            display: block !important;
-        }
-
-        table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-            page-break-inside: auto !important;
-            font-size: 10pt !important;
-        }
-
-        tr {
-            page-break-inside: avoid !important;
-            page-break-after: auto !important;
-        }
-
-        thead {
-            display: table-header-group !important;
-        }
-
-        th,
-        td {
-            padding: 6px 8px !important;
-            border: 1px solid #000 !important;
-        }
-
-        .table-bordered {
-            border: 1px solid #000 !important;
-        }
-
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid #000 !important;
-        }
-
-        .page-break {
-            page-break-before: always !important;
-        }
-    }
-
-    .print-only {
-        display: none;
-    }
-</style>
-
 <div class="container-fluid py-4">
 
     <!-- Header & Filter -->
@@ -370,6 +290,8 @@
     </div>
 
 </div>
+
+<link rel="stylesheet" href="/sigma/public/css/assessment.css">
 
 <!-- SheetJS for Excel Export -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>

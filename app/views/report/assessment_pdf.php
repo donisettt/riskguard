@@ -3,81 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>Laporan Hasil Assessment Responden</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 10pt;
-            line-height: 1.4;
-            color: #000;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 16pt;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            font-size: 12pt;
-            background: #f0f0f0;
-            padding: 8px;
-            border-left: 4px solid #009d63;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        h3 {
-            text-align: center;
-            font-size: 11pt;
-            color: #666;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-        }
-
-        th,
-        td {
-            border: 1px solid #000;
-            padding: 6px 8px;
-            text-align: left;
-        }
-
-        th {
-            background: #f0f0f0;
-            font-weight: bold;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .text-danger {
-            color: #dc2626;
-        }
-
-        .periode {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 10pt;
-        }
-
-        .catatan {
-            background: #e3f2fd;
-            border-left: 4px solid #2196F3;
-            padding: 10px;
-            margin-top: 15px;
-            font-size: 9pt;
-        }
-
-        .catatan ul {
-            margin: 5px 0;
-            padding-left: 20px;
-        }
+        <?= file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/sigma/public/css/assessment-pdf.css'); ?>
     </style>
 </head>
 

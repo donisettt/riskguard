@@ -5,7 +5,7 @@ $current_url = isset($_GET['url']) ? explode('/', $_GET['url'])[0] : 'dashboard'
 
 <div id="sidebar-wrapper">
     <div class="sidebar-heading">
-        <i class="fas fa-shield-halved"></i>
+        <i class="fas fa-brain"></i>
         SIGMA
     </div>
 
@@ -127,9 +127,9 @@ $current_url = isset($_GET['url']) ? explode('/', $_GET['url'])[0] : 'dashboard'
                 <i class="fas fa-graduation-cap"></i> Edukasi
             </a>
 
-            <a href="index.php?url=assessment/history"
-                class="list-group-item list-group-item-action <?= $current_url == 'history' ? 'active' : '' ?>">
-                <i class="fas fa-history"></i> Riwayat Saya
+            <a href="index.php?url=report/userReport"
+                class="list-group-item list-group-item-action <?= ($_GET['url'] ?? '') == 'report/userReport' ? 'active' : '' ?>">
+                <i class="fas fa-chart-pie"></i> Laporan Saya
             </a>
         <?php endif; ?>
     </div>

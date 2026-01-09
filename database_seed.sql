@@ -303,58 +303,58 @@ INSERT INTO `assessment_groups` (`title`, `description`, `created_at`) VALUES
 -- ============================================
 -- 4. BANK SOAL (Sample Questions untuk Assessment)
 -- ============================================
--- Catatan: Contoh 40 soal untuk berbagai grup assessment.
+-- Catatan: Soal disesuaikan dengan 4 pilihan jawaban konsisten:
+-- Tidak Pernah | Kadang-kadang | Sering | Hampir Selalu
 -- Format: (group_id, question, weight)
--- Kolom yang digunakan: group_id, question, weight
 
 INSERT INTO `questions` (`group_id`, `question`, `weight`) VALUES
--- Grup 1: Teknik Industri 2022
-(1, 'Seberapa sering Anda mengakses situs atau aplikasi judi online dalam seminggu terakhir? (a) Tidak pernah (b) 1-2 kali (c) 3-5 kali (d) Lebih dari 5 kali', 10),
-(1, 'Berapa rata-rata uang yang Anda keluarkan untuk judi online per minggu? (a) Rp 0 (b) Rp 1-100 ribu (c) Rp 100-500 ribu (d) Lebih dari Rp 500 ribu', 10),
-(1, 'Apakah Anda pernah berbohong kepada keluarga atau teman tentang aktivitas judi online Anda? (a) Tidak pernah (b) Jarang (c) Kadang-kadang (d) Sering', 10),
-(1, 'Apakah Anda merasa sulit untuk berhenti atau mengurangi aktivitas judi online? (a) Tidak (b) Sedikit sulit (c) Cukup sulit (d) Sangat sulit', 10),
-(1, 'Apakah judi online mengganggu prestasi akademik Anda? (a) Tidak sama sekali (b) Sedikit mengganggu (c) Cukup mengganggu (d) Sangat mengganggu', 10),
-(1, 'Apakah Anda pernah meminjam uang atau berhutang untuk berjudi online? (a) Tidak pernah (b) Pernah 1-2 kali (c) Pernah 3-5 kali (d) Sering (lebih dari 5 kali)', 10),
-(1, 'Seberapa sering Anda memikirkan judi online dalam kehidupan sehari-hari? (a) Tidak pernah (b) Jarang (c) Kadang-kadang (d) Sering/Terus-menerus', 10),
-(1, 'Apakah Anda pernah melewatkan kelas atau kegiatan kampus karena judi online? (a) Tidak pernah (b) Pernah 1-2 kali (c) Pernah 3-5 kali (d) Sering', 10),
-(1, 'Apakah Anda menggunakan judi online sebagai cara untuk mengatasi stress atau masalah? (a) Tidak pernah (b) Jarang (c) Kadang-kadang (d) Sering', 10),
-(1, 'Apa yang Anda pahami tentang konsep "house edge" dalam judi online? (a) Keuntungan selalu ada di pihak bandar (b) Pemain dan bandar punya peluang sama (c) Pemain bisa menang konsisten dengan strategi (d) Tidak tahu', 10),
+-- Grup 1: Teknik Industri 2022 (Fokus: Manajemen Risiko & Decision Making)
+(1, 'Seberapa sering Anda mengakses situs atau aplikasi judi online?', 10),
+(1, 'Seberapa sering Anda memikirkan tentang judi online dalam aktivitas sehari-hari?', 10),
+(1, 'Seberapa sering Anda merasa kesulitan untuk berhenti atau mengurangi aktivitas judi online?', 10),
+(1, 'Seberapa sering Anda menggunakan uang untuk keperluan kuliah (SPP, buku, dll) untuk berjudi online?', 10),
+(1, 'Seberapa sering Anda melewatkan kelas atau kegiatan kampus karena sibuk berjudi online?', 10),
+(1, 'Seberapa sering Anda berbohong kepada keluarga atau teman tentang aktivitas judi online Anda?', 10),
+(1, 'Seberapa sering Anda meminjam uang untuk berjudi online?', 10),
+(1, 'Seberapa sering Anda menggunakan judi online sebagai pelarian dari stress atau masalah?', 10),
+(1, 'Seberapa sering Anda berjudi online hingga kehabisan uang?', 10),
+(1, 'Seberapa sering prestasi akademik Anda terganggu karena aktivitas judi online?', 10),
 
--- Grup 2: Teknik Informatika 2022
-(2, 'Apakah Anda memahami cara kerja Random Number Generator (RNG) dalam judi online? (a) Ya, sangat paham (b) Paham sebagian (c) Kurang paham (d) Tidak paham sama sekali', 10),
-(2, 'Seberapa sering Anda mengakses platform judi online dalam sebulan terakhir? (a) Tidak pernah (b) 1-5 kali (c) 6-15 kali (d) Lebih dari 15 kali', 10),
-(2, 'Apakah Anda tahu bahwa judi online menggunakan algoritma yang dirancang untuk menguntungkan bandar? (a) Ya, saya tahu (b) Pernah dengar tapi tidak yakin (c) Tidak tahu (d) Tidak peduli', 10),
-(2, 'Apakah Anda pernah mencoba mencari "celah" atau "bug" dalam sistem judi online? (a) Tidak pernah (b) Pernah terpikir tapi tidak melakukan (c) Pernah mencoba (d) Sering mencoba', 10),
-(2, 'Bagaimana Anda menilai keamanan data pribadi Anda saat menggunakan situs judi online? (a) Aman (b) Cukup aman (c) Tidak aman (d) Saya tidak menggunakan situs judi', 10),
-(2, 'Apakah Anda memahami bahwa tidak ada "pola" atau "strategi pasti" dalam permainan judi online berbasis RNG? (a) Ya, saya paham (b) Kurang paham (c) Tidak paham (d) Saya percaya ada pola tertentu', 10),
-(2, 'Pernahkah Anda kehilangan uang dalam jumlah besar (lebih dari 1 juta) karena judi online? (a) Tidak pernah (b) Pernah sekali (c) Pernah beberapa kali (d) Sering', 10),
-(2, 'Apakah aktivitas judi online mempengaruhi waktu belajar atau mengerjakan tugas kuliah Anda? (a) Tidak sama sekali (b) Sedikit (c) Cukup banyak (d) Sangat banyak', 10),
-(2, 'Apakah Anda mengetahui konsekuensi hukum dari terlibat dalam judi online di Indonesia? (a) Ya, sangat paham (b) Paham sebagian (c) Kurang paham (d) Tidak tahu', 10),
-(2, 'Seberapa sulit bagi Anda untuk tidak membuka situs/aplikasi judi online dalam satu hari? (a) Sangat mudah, tidak tertarik (b) Cukup mudah (c) Agak sulit (d) Sangat sulit', 10),
+-- Grup 2: Teknik Informatika 2022 (Fokus: Teknologi & Keamanan Digital)
+(2, 'Seberapa sering Anda mengakses platform judi online?', 10),
+(2, 'Seberapa sering Anda mencoba mencari informasi tentang "trik" atau "pola" dalam judi online?', 10),
+(2, 'Seberapa sering Anda mengabaikan tugas programming atau project kuliah karena judi online?', 10),
+(2, 'Seberapa sering Anda merasa yakin bisa mengalahkan sistem judi online dengan strategi tertentu?', 10),
+(2, 'Seberapa sering Anda menggunakan cryptocurrency atau e-wallet untuk transaksi judi online?', 10),
+(2, 'Seberapa sering Anda mencoba mengakses situs judi yang diblokir menggunakan VPN?', 10),
+(2, 'Seberapa sering Anda menghabiskan waktu bermain judi online hingga larut malam?', 10),
+(2, 'Seberapa sering Anda merasa gelisah atau cemas ketika tidak bisa mengakses situs judi online?', 10),
+(2, 'Seberapa sering Anda berbagi informasi tentang situs judi online kepada teman-teman?', 10),
+(2, 'Seberapa sering Anda mengabaikan keamanan data pribadi demi kemudahan akses judi online?', 10),
 
--- Grup 3: DKV 2022
-(3, 'Pernahkah Anda melihat iklan atau promosi judi online di media sosial? (a) Tidak pernah (b) Jarang (c) Sering (d) Sangat sering', 10),
-(3, 'Apakah Anda dapat mengidentifikasi taktik persuasif visual dalam iklan judi online? (a) Ya, sangat bisa (b) Bisa sebagian (c) Kurang bisa (d) Tidak bisa', 10),
-(3, 'Seberapa tertarik Anda dengan tampilan visual dan user interface platform judi online? (a) Tidak tertarik sama sekali (b) Sedikit tertarik (c) Cukup tertarik (d) Sangat tertarik', 10),
-(3, 'Apakah Anda pernah tergoda mencoba judi online karena desain yang menarik? (a) Tidak pernah (b) Pernah terpikir tapi tidak melakukan (c) Pernah mencoba (d) Sering bermain', 10),
-(3, 'Bagaimana pendapat Anda tentang etika desainer yang membuat konten promosi judi online? (a) Tidak etis dan merugikan (b) Netral, hanya pekerjaan (c) Boleh saja jika profesional (d) Tidak ada masalah', 10),
-(3, 'Apakah Anda memahami psychological design yang digunakan platform judi untuk membuat pemain adiktif? (a) Ya, sangat paham (b) Paham sebagian (c) Kurang paham (d) Tidak paham', 10),
-(3, 'Pernahkah Anda diminta membuat desain terkait promosi judi atau gambling? (a) Tidak pernah (b) Pernah ditawari tapi menolak (c) Pernah membuat (d) Sering membuat', 10),
-(3, 'Seberapa sering Anda melihat influencer atau content creator mempromosikan judi online? (a) Tidak pernah (b) Jarang (c) Sering (d) Sangat sering', 10),
-(3, 'Apakah Anda pernah terpengaruh untuk mencoba judi online karena konten di media sosial? (a) Tidak pernah (b) Pernah terpikir (c) Pernah mencoba (d) Ya, dan terus bermain', 10),
-(3, 'Bagaimana Anda menilai tanggung jawab desainer grafis dalam mencegah promosi judi online? (a) Sangat bertanggung jawab (b) Cukup bertanggung jawab (c) Kurang bertanggung jawab (d) Tidak ada tanggung jawab', 10),
+-- Grup 3: DKV 2022 (Fokus: Visual Marketing & Media Sosial)
+(3, 'Seberapa sering Anda melihat iklan atau promosi judi online di media sosial Anda?', 10),
+(3, 'Seberapa sering Anda tertarik dengan tampilan visual platform judi online?', 10),
+(3, 'Seberapa sering Anda mengklik atau membuka konten promosi judi online yang muncul di feed Anda?', 10),
+(3, 'Seberapa sering Anda tergoda mencoba judi online karena desain yang menarik dan user-friendly?', 10),
+(3, 'Seberapa sering Anda melihat influencer atau content creator mempromosikan judi online?', 10),
+(3, 'Seberapa sering Anda mengikuti akun media sosial yang berkaitan dengan judi online?', 10),
+(3, 'Seberapa sering Anda merasa ingin mencoba judi online setelah melihat testimoni kemenangan orang lain?', 10),
+(3, 'Seberapa sering project desain atau tugas kuliah Anda terganggu karena judi online?', 10),
+(3, 'Seberapa sering Anda mempertimbangkan untuk membuat konten atau desain terkait judi online demi uang?', 10),
+(3, 'Seberapa sering Anda menghabiskan uang hasil freelance desain untuk berjudi online?', 10),
 
--- Grup 4: Manajemen Ritel 2022
-(4, 'Seberapa baik Anda dalam mengelola keuangan pribadi Anda? (a) Sangat baik (b) Cukup baik (c) Kurang baik (d) Buruk', 10),
-(4, 'Apakah Anda memiliki anggaran bulanan yang terstruktur? (a) Ya, selalu (b) Kadang-kadang (c) Jarang (d) Tidak pernah', 10),
-(4, 'Pernahkah Anda menganggap judi online sebagai cara untuk mendapatkan penghasilan tambahan? (a) Tidak pernah (b) Pernah terpikir (c) Ya, pernah mencoba (d) Ya, sering melakukan', 10),
-(4, 'Apakah Anda dapat membedakan antara investasi dan perjudian? (a) Ya, sangat jelas (b) Cukup paham (c) Kurang jelas (d) Tidak bisa membedakan', 10),
-(4, 'Seberapa sering Anda mengalami kesulitan keuangan dalam 6 bulan terakhir? (a) Tidak pernah (b) Jarang (c) Kadang-kadang (d) Sering', 10),
-(4, 'Apakah Anda pernah menggunakan uang SPP, uang makan, atau uang kebutuhan untuk judi online? (a) Tidak pernah (b) Pernah 1-2 kali (c) Beberapa kali (d) Sering', 10),
-(4, 'Bagaimana Anda menilai risiko judi online dibandingkan dengan investasi saham atau crypto? (a) Judi jauh lebih berisiko (b) Sama-sama berisiko (c) Investasi lebih berisiko (d) Tidak tahu', 10),
-(4, 'Apakah Anda memahami konsep probabilitas dan expected value dalam konteks judi? (a) Ya, sangat paham (b) Paham sebagian (c) Kurang paham (d) Tidak paham', 10),
-(4, 'Seberapa baik literasi keuangan Anda tentang bahaya judi online? (a) Sangat baik (b) Cukup baik (c) Kurang baik (d) Buruk', 10),
-(4, 'Apakah Anda pernah mengikuti seminar atau workshop tentang financial literacy? (a) Ya, sering (b) Pernah 1-2 kali (c) Belum pernah tapi tertarik (d) Tidak tertarik', 10);
+-- Grup 4: Manajemen Ritel 2022 (Fokus: Financial Literacy & Money Management)
+(4, 'Seberapa sering Anda menganggap judi online sebagai cara untuk mendapatkan uang tambahan?', 10),
+(4, 'Seberapa sering Anda mengalami kesulitan keuangan akibat judi online?', 10),
+(4, 'Seberapa sering Anda menggunakan uang belanja atau uang makan untuk berjudi online?', 10),
+(4, 'Seberapa sering Anda menyembunyikan transaksi judi online dari keluarga?', 10),
+(4, 'Seberapa sering Anda berhutang atau meminjam uang untuk modal judi online?', 10),
+(4, 'Seberapa sering Anda mengabaikan kebutuhan penting demi berjudi online?', 10),
+(4, 'Seberapa sering Anda merasa menyesal setelah menghabiskan uang untuk judi online?', 10),
+(4, 'Seberapa sering Anda mencoba "mengejar kerugian" dengan terus berjudi?', 10),
+(4, 'Seberapa sering Anda membandingkan judi online dengan investasi atau bisnis?', 10),
+(4, 'Seberapa sering tugas atau project kuliah Anda terganggu karena memikirkan judi online?', 10);
 
 -- ============================================
 -- CATATAN PENTING:

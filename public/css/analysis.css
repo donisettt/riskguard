@@ -1,0 +1,137 @@
+.risk-card {
+  border-left: 4px solid;
+  transition: all 0.3s;
+}
+
+.risk-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: white !important;
+    color: #000 !important;
+    font-size: 11pt !important;
+    margin: 0;
+    padding: 15mm !important;
+  }
+
+  .container-fluid {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .no-print,
+  .sidebar,
+  .navbar,
+  nav,
+  header,
+  .btn,
+  button {
+    display: none !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .card {
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  .section-title-print {
+    background: #f0f0f0 !important;
+    border-left: 4px solid #000 !important;
+    padding: 8px 12px !important;
+    margin: 15px 0 10px 0 !important;
+    font-weight: bold !important;
+    font-size: 12pt !important;
+    page-break-after: avoid !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto !important;
+    font-size: 10pt !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  th,
+  td {
+    padding: 6px 8px !important;
+    border: 1px solid #000 !important;
+  }
+
+  .table-bordered {
+    border: 1px solid #000 !important;
+  }
+
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #000 !important;
+  }
+
+  .table-light {
+    background-color: #e9ecef !important;
+  }
+
+  .text-danger {
+    color: #dc3545 !important;
+  }
+
+  .page-break {
+    page-break-before: always !important;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid !important;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+.section-title-print {
+  background: #f8f9fa;
+  border-left: 5px solid #0d6efd;
+  padding: 12px 20px;
+  margin: 25px 0 15px 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+}

@@ -35,16 +35,6 @@ class Assessment
         return $stmt->execute();
     }
 
-    // Ambil History Assessment User
-    public function getHistoryByUser($user_id)
-    {
-        $query = "SELECT * FROM assessments WHERE user_id = :user_id ORDER BY created_at DESC";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":user_id", $user_id);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     // Ambil Detail Hasil Terakhir (Untuk halaman Result)
     public function getLatestResult($user_id)
     {
