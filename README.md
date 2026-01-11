@@ -13,6 +13,28 @@ SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku
 
 **Sistem ini menggunakan arsitektur API RESTful** untuk komunikasi antara frontend dan backend, memungkinkan operasi CRUD yang lebih terstruktur dan dapat diintegrasikan dengan aplikasi lain di masa mendatang.
 
+## Screenshot Aplikasi
+
+### Landing Page & Admin Interface
+
+<table>
+  <tr>
+    <td><img src="dokumentasi/landing-page.png" alt="Landing Page" width="100%"/></td>
+    <td><img src="dokumentasi/admin-1.png" alt="Admin Dashboard" width="100%"/></td>
+    <td><img src="dokumentasi/admin-2.png" alt="Admin Features" width="100%"/></td>
+  </tr>
+</table>
+
+### Admin & User Interface
+
+<table>
+  <tr>
+    <td><img src="dokumentasi/admin-3.png" alt="Admin Management" width="100%"/></td>
+    <td><img src="dokumentasi/user-1.png" alt="User Dashboard" width="100%"/></td>
+    <td><img src="dokumentasi/user-2.png" alt="User Features" width="100%"/></td>
+  </tr>
+</table>
+
 ## Fitur Utama
 
 ### 1. Manajemen User
