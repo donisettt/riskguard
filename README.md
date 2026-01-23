@@ -1,12 +1,5 @@
 # SIGMA - Sistem Analisis Risiko Perilaku Judi Online
 
-## Informasi Mahasiswa
-
-- **Nama:** Doni Setiawan Wahyono
-- **NIM:** 23552011146
-- **Program Studi:** Teknik Informatika
-- **Mata Kuliah:** Pemrograman Web 1 (UAS)
-
 ## Deskripsi Project
 
 SIGMA adalah sistem berbasis web untuk menganalisis dan memantau risiko perilaku kecanduan judi online. Sistem ini menyediakan assessment risiko, analisis data, dan laporan komprehensif untuk membantu identifikasi dan monitoring responden.
