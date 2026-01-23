@@ -3,7 +3,7 @@
 ## Base URL
 
 ```
-http://localhost/sigma/index.php?url=api
+https://sigma.donisw.my.id/index.php?url=api
 ```
 
 ## Overview
@@ -16,14 +16,19 @@ SIGMA API menggunakan arsitektur RESTful dengan format JSON untuk request dan re
 
 ### Login
 
-**Endpoint:** `POST /api/auth/login`
+**Endpoint:** `POST /auth/login`
+
+**Headers:**
+
+- `Content-Type: application/json`
+- `Accept: application/json`
 
 **Request Body:**
 
 ```json
 {
-  "email": "admin@sigma.com",
-  "password": "admin123"
+  "email": "doni@sigma.com",
+  "password": "password"
 }
 ```
 
@@ -31,14 +36,15 @@ SIGMA API menggunakan arsitektur RESTful dengan format JSON untuk request dan re
 
 ```json
 {
-  "success": true,
-  "message": "Login berhasil",
-  "data": {
-    "user_id": 1,
-    "name": "Admin",
-    "email": "admin@sigma.com",
-    "role": "admin"
-  }
+    "success": true,
+    "message": "Login berhasil",
+    "data": {
+        "id": "1",
+        "name": "Doni Wahyono",
+        "email": "doni@sigma.com",
+        "role": "admin",
+        "session_id": "jus15q4nq7dhh8i87c8hkil5ms"
+    }
 }
 ```
 
@@ -55,7 +61,7 @@ SIGMA API menggunakan arsitektur RESTful dengan format JSON untuk request dan re
 
 ### Register
 
-**Endpoint:** `POST /api/auth/register`
+**Endpoint:** `POST /auth/register`
 
 **Request Body:**
 
@@ -73,6 +79,28 @@ SIGMA API menggunakan arsitektur RESTful dengan format JSON untuk request dan re
 {
   "success": true,
   "message": "Registrasi berhasil"
+}
+```
+
+### Logout
+
+**Endpoint:** `POST /auth/logout`
+
+**Request Body:**
+
+```json
+{
+  "email": "doni@sigma.com",
+  "password": "password"
+}
+```
+
+**Response Success (201):**
+
+```json
+{
+    "success": true,
+    "message": "Logout berhasil"
 }
 ```
 
@@ -730,4 +758,3 @@ Untuk pertanyaan atau issue terkait API, silakan hubungi:
 
 - **Developer:** Doni Setiawan Wahyono
 - **Email:** donisetiawanwahyono@gmail.com
-- **
